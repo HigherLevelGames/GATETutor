@@ -92,18 +92,6 @@ public class Questions : MonoBehaviour
         currentQuestion = questions[questionNum];
     }
 
-    void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.tag == "OR")
-        {
-
-        }
-        LineRenderer l = this.GetComponent<LineRenderer>();
-        l.SetPosition(0,new Vector3(0,0,0));
-        l.SetPosition(1, new Vector3(0, 0, 0));
-        l.Set
-    }
-
     [System.Serializable]
     public class Question
     {
