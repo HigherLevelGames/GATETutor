@@ -12,18 +12,19 @@ public class Title : MonoBehaviour
     public Rect BackButton = new Rect(0f, 60f, 50f, 20f);
     public string GameTitle = "GATE Tutor";
     public Font titleFont;
+    public GUISkin titleSkin;
 
     private string titleText = "GATE Tutor";
     private Font defaultFont;
-
-    public GUISkin skin;
+    public Font buttonFont;
+    public GUISkin buttonSkin;
 
     // Use this for initialization
     void Start()
     {
-        if (skin != null)
+        if (buttonSkin != null)
         {
-            defaultFont = skin.font;
+            defaultFont = buttonSkin.font;
         }
         PlayerPrefs.DeleteAll();
     }
@@ -36,15 +37,15 @@ public class Title : MonoBehaviour
 
     void OnGUI()
     {
-        GUI.skin = skin;
-        if (titleFont != null)
-        {
-            //GUI.contentColor = Color.green;
-            GUI.skin.font = titleFont;
-        }//*/
-        GUI.Label(new Rect(Screen.width * 0.20f, Screen.height * 0.1f, Screen.width * 0.6f, Screen.height * 0.2f), titleText);
+        GUI.skin = titleSkin;
+        GUI.skin.font = titleFont;
+        GUI.contentColor = Color.black;
+        GUI.Box(new Rect(Screen.width * 0.20f, Screen.height * 0.1f, Screen.width * 0.6f, Screen.height * 0.2f), titleText);
         //GUI.contentColor = Color.cyan;
-        GUI.skin.font = defaultFont;
+
+        GUI.skin = buttonSkin;
+        GUI.skin.font = buttonFont;
+        GUI.contentColor = Color.black;
 
         Rect tempBox;
         switch (scene)

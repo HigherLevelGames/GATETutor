@@ -5,29 +5,45 @@ using System.Collections;
 
 public class PedagogicalModule : MonoBehaviour
 {
-    public GUISkin skin;
+    public GUISkin skinBox;
+    public GUISkin skinButton;
+    public Font questionFont;
+    public Font buttonFont;
     public Task[] tasks;
     public StepAnalyzer analyzer;
     private Task currentTask;
     private int taskNum;
+    private bool showNext = false;
 
 	// Use this for initialization
 	void Start ()
     {
         taskNum = 0;
         currentTask = tasks[taskNum];
+        SetStep();
 	}
-	
-	// Update is called once per frame
-	void Update ()
+
+    void winFunc(int id)
     {
-	}
+
+    }
 
     void OnGUI()
     {
-        GUI.skin = skin;
-        GUI.Label(new Rect(0, 0, Screen.width, Screen.height * 0.2f), currentTask.question);
+        GUI.skin = skinBox;
+        GUI.skin.font = questionFont;
+        GUI.contentColor = Color.black;
+        GUI.skin.box.alignment = TextAnchor.MiddleCenter;
+        GUI.skin.box.fontSize = 50;
+        GUI.Box(new Rect(0, 0, Screen.width, Screen.height * 0.2f), currentTask.question);
+        
+        //GUI.Window(0, new Rect(0, 0, Screen.width, Screen.height * 0.2f), winFunc, currentTask.question);
+        //GUI.Label(new Rect(0, 0, Screen.width, Screen.height * 0.2f), currentTask.question);
 
+        GUI.skin = skinButton;
+        GUI.skin.font = buttonFont;
+
+        /*
         if (GUI.Button(new Rect(0, Screen.height*0.8f, Screen.width * 0.25f, Screen.height*0.1f), "Prev"))
         {
             GetPrevQuestion();
@@ -46,6 +62,15 @@ public class PedagogicalModule : MonoBehaviour
         if (GUI.Button(new Rect(Screen.width * 0.75f, Screen.height * 0.8f, Screen.width * 0.25f, Screen.height * 0.1f), "Quit"))
         {
             Application.LoadLevel("End");
+        }//*/
+
+        if (showNext)
+        {
+            if (GUI.Button(new Rect(Screen.width * 0.75f, Screen.height * 0.8f, Screen.width * 0.25f, Screen.height * 0.1f), "Next Problem"))
+            {
+                NextTask();
+                showNext = false;
+            }
         }
 
         /*
@@ -102,6 +127,41 @@ public class PedagogicalModule : MonoBehaviour
         SetStep();
     }
 
+    public void NextTask()
+    {
+        GameObject[] toClean = GameObject.FindGameObjectsWithTag("ToClean");
+        foreach (GameObject o in toClean)
+        {
+            Destroy(o);
+        }
+
+        //GetQuestion(7); // if need specific
+        //GetPrevQuestion(); // if need easier
+        //GetRandomQuestion(); // for uncertainty
+        GetNextQuestion(); // if need harder
+        SetStep();
+    }
+
+    /* Order of Operations: (Boolean Algebra)
+    1. Parenthesis ( ) 
+    2. NOT ~ 
+    3. AND z 
+    4. OR +
+    //*/
+
+    public void NextStep()
+    {
+        currentTask.stepNum++;
+        if (currentTask.answeredQuestion)
+        {
+            showNext = true;
+        }
+        else
+        {
+            SetStep();
+        }
+    }
+
     public void SetStep()
     {
         analyzer.SendMessage("SetStep", currentTask.currentStep);
@@ -112,9 +172,32 @@ public class PedagogicalModule : MonoBehaviour
     {
         public string question;
         public string KC;
+        public bool answeredQuestion = false;
 
         public Step[] steps; // question/task has multiple steps
-        public Step currentStep;
-        public int stepNum = 0;
+        public Step currentStep
+        {
+            get
+            {
+                return steps[stepNum];
+            }
+        }
+
+        private int num = 0;
+        public int stepNum
+        {
+            get
+            {
+                return num;
+            }
+            set
+            {
+                num = Mathf.Clamp(value, 0, steps.Length - 1);
+                if (value == steps.Length)
+                {
+                    answeredQuestion = true;
+                }
+            }
+        }
     }
 }
