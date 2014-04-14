@@ -2,11 +2,31 @@
 using System.Collections;
 
 // Pedagogical module
+// Generate feedback and hints.
+
+// It inputs the students steps,
+// which have been analyzed by the Step Analyzer,
+// and outputs feedback and hints on the steps
+// to the student interface, which presents them.
+
+// If the student requests help,
+// then it takes that as an input as well.
+
+// With process tutoring, the pedagogical module
+// receives steps as the student generates them,
+// and it reacts to each step when it receives it.
+
+
+// Task Selector:
+// 1. decide when a student has finished a module and may go on to another one.
+// 2. pick or recommend a task for the student to do as part of their work within a module.
+
 
 public class PedagogicalModule : MonoBehaviour
 {
     public GUISkin skinBox;
     public GUISkin skinButton;
+    public Rect questionBox = new Rect(0,0,Screen.width, Screen.height * 0.2f);
     public Font questionFont;
     public Font buttonFont;
     public Task[] tasks;
@@ -35,7 +55,7 @@ public class PedagogicalModule : MonoBehaviour
         GUI.contentColor = Color.black;
         GUI.skin.box.alignment = TextAnchor.MiddleCenter;
         GUI.skin.box.fontSize = 50;
-        GUI.Box(new Rect(0, 0, Screen.width, Screen.height * 0.2f), currentTask.question);
+        GUI.Box(questionBox, currentTask.question);
         
         //GUI.Window(0, new Rect(0, 0, Screen.width, Screen.height * 0.2f), winFunc, currentTask.question);
         //GUI.Label(new Rect(0, 0, Screen.width, Screen.height * 0.2f), currentTask.question);
@@ -151,7 +171,9 @@ public class PedagogicalModule : MonoBehaviour
 
     public void NextStep()
     {
+        Vector3 prevPos = currentTask.currentStep.position;
         currentTask.stepNum++;
+        currentTask.currentStep.inputPositions.Add(prevPos);
         if (currentTask.answeredQuestion)
         {
             showNext = true;

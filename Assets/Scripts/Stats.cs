@@ -1,6 +1,24 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+// Assessor (i.e. Unity's PlayerPrefs)
+// For a step-based tutoring system,
+// the assessor needs to receive all the steps
+// that the student did, and for each step,
+// the step analyzer needs to send the assessor:
+// 1. A step history e.g., whether the student got the step right
+//    on the first attempt, asked for a hint, gave up, etc.
+// 2. The knowledge components exercised by the step
+// The assessor maintains the learner model,
+// which has a database of all knowledge components
+// and perhaps much other information about the student/learner.
+// Each knowledge component has a number,
+// category or some other value that represents the learner's
+// current competence on that knowledge component.
+// The assessor's job is to update the measures of competence
+// based on the input it receives from the step analyzer.
+
+
 public class Stats : MonoBehaviour
 {
 	// Use this for initialization

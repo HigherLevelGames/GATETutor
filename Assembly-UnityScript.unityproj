@@ -49,6 +49,11 @@
      <Compile Include="Assets\StretchToScreen.js" />
      <None Include="Assets\Test.txt" />
      <None Include="Assets\EWS.GUI\GUISkin Editor\README.txt" />
+     <None Include="Assets\Standard Assets\Particles\Sources\Shaders\Particle Alpha Blend (Queue +100).shader" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Assembly-UnityScript-firstpass.unityproj">
+      <Project>{AF242474-ED24-CCB3-D978-8FAFA90293D9}</Project>      <Name>Assembly-UnityScript-firstpass</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

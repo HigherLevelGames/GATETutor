@@ -20,11 +20,23 @@ public class OurLineRenderer : MonoBehaviour
 	
 	}
 
+    void SetStart(Vector3 p)
+    {
+        Vector3 temp = Camera.main.WorldToScreenPoint(p);
+        point1 = new Vector2(temp.x, Screen.height - temp.y);
+    }
+
+    void SetEnd(Vector3 p)
+    {
+        Vector3 temp = Camera.main.WorldToScreenPoint(p);
+        point2 = new Vector2(temp.x, Screen.height - temp.y);
+    }
+
     void OnGUI()
     {
         // first horizontal line
         float mid = (point1.x + point2.x) / 2.0f;
-        Debug.Log(mid);
+        //Debug.Log(mid);
         Rect line = new Rect(point1.x, point1.y, mid - point1.x, lineWidth);
         GUI.DrawTexture(line, blankTexture);
 
