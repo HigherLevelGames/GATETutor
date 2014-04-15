@@ -15,17 +15,31 @@ public class Title : MonoBehaviour
     public Rect InstructButton = new Rect(0f, 60f, 50f, 20f);
     public Rect BackButton = new Rect(0f, 60f, 50f, 20f);
 
+    // Username Input Field Vars
+    public Rect UsernameField = new Rect(0f, 80f, 50f, 20f);
+    private string userName = "User";
+
     // Private Vars
     private string titleText = "";
     private int scene = 0;
     // 0 = title
     // 1 = instructions
+    private bool startGame = false;
 
     // Use this for initialization
     void Start()
     {
         titleText = GameTitle;
+        userName = "User" + Random.Range(0, 9999).ToString("0000");
         PlayerPrefs.DeleteAll();
+    }
+
+    void Update()
+    {
+        if (startGame && !audio.isPlaying)
+        {
+            Application.LoadLevel("MainGame");
+        }
     }
 
     void OnGUI()
@@ -34,6 +48,7 @@ public class Title : MonoBehaviour
         GUI.skin.font = titleFont;
         GUI.skin.box.alignment = TextAnchor.MiddleCenter;
         GUI.contentColor = Color.black;
+        GUI.skin.box.fontSize = 50;
         GUI.Box(new Rect(Screen.width * 0.20f, Screen.height * 0.1f, Screen.width * 0.6f, Screen.height * 0.2f), titleText);
 
         GUI.skin = buttonSkin;
@@ -43,12 +58,16 @@ public class Title : MonoBehaviour
         switch (scene)
         {
         case 0:
+            userName = GUI.TextField(adjRect(UsernameField), userName);
             if (GUI.Button(adjRect(PlayButton), "Play"))
             {
-                Application.LoadLevel("MainGame");
+                audio.Play();
+                PlayerPrefs.SetString("Username", userName);
+                startGame = true;
             }
             if (GUI.Button(adjRect(InstructButton), "Instructions"))
             {
+                audio.Play();
                 titleText = "Instructions";
                 scene = 1;
             }
@@ -56,6 +75,7 @@ public class Title : MonoBehaviour
         case 1: // Instructions
             if (GUI.Button(adjRect(BackButton), "Back"))
             {
+                audio.Play();
                 titleText = GameTitle;
                 scene = 0;
             }

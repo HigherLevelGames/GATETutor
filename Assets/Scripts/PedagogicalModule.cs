@@ -20,21 +20,34 @@ using System.Collections;
 // Task Selector:
 // 1. decide when a student has finished a module and may go on to another one.
 // 2. pick or recommend a task for the student to do as part of their work within a module.
+// Questions: http://sandbox.mc.edu/~bennet/cs110/boolalg/gate.html
 
+
+/* Order of Operations: (Boolean Algebra)
+1. Parenthesis ( ) 
+2. NOT ~ 
+3. AND z 
+4. OR +
+//*/
 
 public class PedagogicalModule : MonoBehaviour
 {
-    public GUISkin skinBox;
     public GUISkin skinButton;
-    public Rect questionBox = new Rect(0,0,Screen.width, Screen.height * 0.2f);
-    public Font questionFont;
+    public Rect nextButton = new Rect(75, 80, 25, 10);
     public Font buttonFont;
     public Task[] tasks;
     public StepAnalyzer analyzer;
+
+    public GameObject spark;
+    public AudioClip finishedTaskSFX; // sound that plays when lights turn on
+    public AudioClip btnSFX; // sound that plays when going to a new task
+    public AudioClip correctSFX; // sound that plays when a step is entered correctly
+    public AudioClip wrongSFX; // sound that plays when a step is entered incoreectly
+
     private Task currentTask;
     private int taskNum;
     private bool showNext = false;
-
+    
 	// Use this for initialization
 	void Start ()
     {
@@ -43,23 +56,8 @@ public class PedagogicalModule : MonoBehaviour
         SetStep();
 	}
 
-    void winFunc(int id)
-    {
-
-    }
-
     void OnGUI()
     {
-        GUI.skin = skinBox;
-        GUI.skin.font = questionFont;
-        GUI.contentColor = Color.black;
-        GUI.skin.box.alignment = TextAnchor.MiddleCenter;
-        GUI.skin.box.fontSize = 50;
-        GUI.Box(questionBox, currentTask.question);
-        
-        //GUI.Window(0, new Rect(0, 0, Screen.width, Screen.height * 0.2f), winFunc, currentTask.question);
-        //GUI.Label(new Rect(0, 0, Screen.width, Screen.height * 0.2f), currentTask.question);
-
         GUI.skin = skinButton;
         GUI.skin.font = buttonFont;
 
@@ -86,8 +84,13 @@ public class PedagogicalModule : MonoBehaviour
 
         if (showNext)
         {
-            if (GUI.Button(new Rect(Screen.width * 0.75f, Screen.height * 0.8f, Screen.width * 0.25f, Screen.height * 0.1f), "Next Problem"))
+            GUI.backgroundColor = Color.white;
+            if (GUI.Button(adjRect(nextButton), "Next Problem"))
             {
+                GameObject.Find("Sci-Fi Interface").SendMessage("TurnOff");
+                this.SendMessage("ClearConsole");
+                audio.clip = btnSFX;
+                audio.Play();
                 NextTask();
                 showNext = false;
             }
@@ -97,6 +100,16 @@ public class PedagogicalModule : MonoBehaviour
         if(GUI.Button(hint))
             give hint GUI.Box
         //*/
+    }
+
+    // returns Rectangle adjusted to screen size
+    Rect adjRect(Rect r)
+    {
+        return new Rect(
+                r.x * Screen.width / 100.0f,
+                r.y * Screen.height / 100.0f,
+                r.width * Screen.width / 100.0f,
+                r.height * Screen.height / 100.0f);
     }
 
     public void GetQuestion(int num)
@@ -162,31 +175,56 @@ public class PedagogicalModule : MonoBehaviour
         SetStep();
     }
 
-    /* Order of Operations: (Boolean Algebra)
-    1. Parenthesis ( ) 
-    2. NOT ~ 
-    3. AND z 
-    4. OR +
-    //*/
-
+    // called by step analyzer to inform pedagogical module of a correct step
     public void NextStep()
     {
         Vector3 prevPos = currentTask.currentStep.position;
         currentTask.stepNum++;
         currentTask.currentStep.inputPositions.Add(prevPos);
-        if (currentTask.answeredQuestion)
+        if (currentTask.answeredQuestion) // finished task
         {
-            showNext = true;
+            this.SendMessage("AddLine", "Complete!");
+            GameObject.Find("Sci-Fi Interface").SendMessage("TurnOn");
+            audio.clip = finishedTaskSFX;
+            audio.Play();
+            showNext = true; // to show the next button and give student a chance to review his/her work
         }
-        else
+        else // correct step
         {
+            this.SendMessage("AddLine", "Correct");
+            audio.clip = correctSFX;
+            audio.Play();
             SetStep();
         }
     }
 
+    // called by step analyzer to inform pedagogical module of an incorrect step
+    public void IncorrectStep(string answered)
+    {
+        // play sound
+        audio.clip = wrongSFX;
+        audio.Play();
+
+        // create particle
+        GameObject temp = (GameObject)Instantiate(spark, currentTask.currentStep.position, Quaternion.identity);
+        Destroy(temp, 0.7f);
+
+        // show hint on console
+        this.SendMessage("AddLine", "Incorrect: You answered: " + answered);
+    }
+
+    public void GiveHint()
+    {
+        this.SendMessage("AddLine", "Hint: " + currentTask.currentStep.hint);
+    }
+
     public void SetStep()
     {
+        // step analyzer needs new step
         analyzer.SendMessage("SetStep", currentTask.currentStep);
+
+        // title on console
+        this.SendMessage("SetTitle", "Current Task: " + currentTask.question);
     }
 
     [System.Serializable]

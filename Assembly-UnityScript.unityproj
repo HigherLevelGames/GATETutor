@@ -46,8 +46,8 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\StretchToScreen.js" />
-     <None Include="Assets\Test.txt" />
+     <Compile Include="Assets\Scripts\StretchToScreen.js" />
+     <None Include="Assets\Scripts\Test.txt" />
      <None Include="Assets\EWS.GUI\GUISkin Editor\README.txt" />
      <None Include="Assets\Standard Assets\Particles\Sources\Shaders\Particle Alpha Blend (Queue +100).shader" />
   </ItemGroup>
