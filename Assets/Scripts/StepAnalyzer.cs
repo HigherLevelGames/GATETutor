@@ -76,6 +76,7 @@ public class StepAnalyzer : MonoBehaviour
         {
             Debug.Log("wrong answer");
             col.gameObject.SendMessage("Return");
+            GameObject.Find("PedagogicalModule").SendMessage("IncorrectStep", col.gameObject.tag);
         }
     }
 }
