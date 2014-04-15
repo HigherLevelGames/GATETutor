@@ -48,7 +48,8 @@ public class Console : MonoBehaviour
         Rect scrollRect = new Rect(sideBuffer, topBuffer, winWidth, rctWindow.height - topBuffer - bottomBuffer);
         
         // console background
-        GUI.backgroundColor = Color.black;
+        Vector2 temp = new Vector2(Input.mousePosition.x,Screen.height - Input.mousePosition.y);
+        GUI.backgroundColor = (rctWindow.Contains(temp)) ? Color.black : Color.black * 0.8f;
         GUI.Box(scrollRect, "");
         GUI.backgroundColor = Color.white; // white again for vertical scroll bar
 
@@ -65,7 +66,7 @@ public class Console : MonoBehaviour
         {
             float lineHeight = GUI.skin.GetStyle("Label").CalcHeight(new GUIContent(l), consoleWidth);
             GUI.skin.label.normal.textColor = (l.Contains("Incorrect")) ? Color.red : Color.green;
-            GUI.Label(new Rect(0, offset, consoleWidth, lineHeight), l);
+            GUI.Label(new Rect(0+5, offset, consoleWidth, lineHeight), l);
             offset += lineHeight;
         }
 
