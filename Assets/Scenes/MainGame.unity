@@ -1054,6 +1054,7 @@ MonoBehaviour:
       answer: 1
   analyzer: {fileID: 1042244452}
   spark: {fileID: 100000, guid: 7a598717ded698c4dbdd57c2260fa1e1, type: 2}
+  spark2: {fileID: 100000, guid: c994fde8e6848a3771503f184e0c9cb4, type: 2}
   finishedTaskSFX: {fileID: 8300000, guid: cc98b8ccdf9a248059887d064e7e5067, type: 3}
   btnSFX: {fileID: 8300000, guid: a311af8d30e8248039087421007391e9, type: 3}
   correctSFX: {fileID: 8300000, guid: 8904096a3646d43fd88ea2a4d254fa10, type: 3}

@@ -39,6 +39,7 @@ public class PedagogicalModule : MonoBehaviour
     public StepAnalyzer analyzer;
 
     public GameObject spark;
+    public GameObject spark2;
     public AudioClip finishedTaskSFX; // sound that plays when lights turn on
     public AudioClip btnSFX; // sound that plays when going to a new task
     public AudioClip correctSFX; // sound that plays when a step is entered correctly
@@ -208,6 +209,8 @@ public class PedagogicalModule : MonoBehaviour
         // create particle
         GameObject temp = (GameObject)Instantiate(spark, currentTask.currentStep.position, Quaternion.identity);
         Destroy(temp, 0.7f);
+        GameObject temp2 = (GameObject)Instantiate(spark2, currentTask.currentStep.position, Quaternion.identity);
+        Destroy(temp2, 0.5f);
 
         // show hint on console
         this.SendMessage("AddLine", "Incorrect: You answered: " + answered);
