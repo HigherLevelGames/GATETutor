@@ -49,7 +49,7 @@ public class Console : MonoBehaviour
         
         // console background
         Vector2 temp = new Vector2(Input.mousePosition.x,Screen.height - Input.mousePosition.y);
-        GUI.backgroundColor = (rctWindow.Contains(temp)) ? Color.black : Color.black * 0.8f;
+        GUI.backgroundColor = Color.black;//(rctWindow.Contains(temp)) ? Color.black : Color.black * 0.8f;
         GUI.Box(scrollRect, "");
         GUI.backgroundColor = Color.white; // white again for vertical scroll bar
 

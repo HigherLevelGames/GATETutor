@@ -42,7 +42,8 @@ public class Stats : MonoBehaviour
         }
         //*/
 
-        GUI.Box(new Rect(0,0,Screen.width, Screen.height),text);
+        GUI.Label(new Rect(0, 0, Screen.width, Screen.height*0.1f), text);
+        //GUI.Box(new Rect(0,0,Screen.width, Screen.height),text);
 
         if (GUI.Button(new Rect(Screen.width * 0.75f, Screen.height * 0.8f, Screen.width * 0.25f, Screen.height * 0.1f), "Restart"))
         {
