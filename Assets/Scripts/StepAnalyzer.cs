@@ -26,13 +26,38 @@ public class StepAnalyzer : MonoBehaviour
 {
     public string answer; // and, or, not, nand, or nor
     public Step currentStep;
+    private Texture2D wireTexture;
+    public float width = 100;
 
 	// Use this for initialization
-	void Start () { }
+	void Start ()
+    {
+        int resolution = 256;
+        int lineThickness = 5;
+        wireTexture = new Texture2D(resolution, resolution);
+        for (int i = 0; i < resolution; i++)
+        {
+            for (int j = 0; j < resolution; j++)
+            {
+                wireTexture.SetPixel(i, j, Color.clear);
+                if (i < lineThickness || j < lineThickness || i > (resolution - 1) - lineThickness || j > (resolution-1) - lineThickness)
+                {
+                    wireTexture.SetPixel(i, j, Color.green);
+                }
+            }
+        }
+        wireTexture.Apply();
+    }
 	
 	// Update is called once per frame
 	void Update ()
     {
+    }
+
+    void OnGUI()
+    {
+        Vector3 pt = Camera.main.WorldToScreenPoint(this.transform.position);
+        GUI.DrawTexture(new Rect(pt.x - width / 2.0f, Screen.height - pt.y - width / 2.0f, width, width), wireTexture);
     }
 
     void SetStep(Step a)

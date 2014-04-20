@@ -7,15 +7,11 @@ public class ClickAndDrag : MonoBehaviour
     private float distance;
     public bool isDraggable = true;
     private Vector3 initPos;
-    //private Rect canvasRegion;
-    private Interface i;
 
     void Start()
     {
         initPos = this.transform.position;
         isDraggable = true;
-        i = GameObject.Find("Sci-Fi Interface").GetComponent<Interface>();
-        //canvasRegion = GameObject.Find("Sci-Fi Interface").GetComponent<Interface>().canvasRect;
     }
 
     void Update()
@@ -48,17 +44,7 @@ public class ClickAndDrag : MonoBehaviour
     {
         if (isDraggable)
         {
-            Rect temp = i.getScreenRect();
-            if (temp.Contains(Input.mousePosition))//canvasRegion.Contains(Input.mousePosition))
-            {
-                this.transform.position = initPos;
-            }
-
-            Vector3 pos = Camera.main.WorldToScreenPoint(this.transform.position);
-            if (pos.x < 0 || pos.x > Screen.width || pos.y < 0 || pos.y > Screen.height - temp.y - temp.height)//canvasRegion.y - canvasRegion.height)
-            {
-                this.transform.position = initPos;
-            }
+            this.transform.position = initPos;
         }
     }
 
