@@ -1017,6 +1017,42 @@ MonoBehaviour:
       position: {x: -2.69481492, y: .58474952, z: 0}
       inputPositions: []
       answer: 1
+  - question: "Draw a logic circuit for AB + \xAC(AC)."
+    KC: 
+    answeredQuestion: 0
+    steps:
+    - hint: 
+      position: {x: -5.95676422, y: -1.269647, z: 0}
+      inputPositions: []
+      answer: 3
+    - hint: 
+      position: {x: -5.95676422, y: .58474952, z: 0}
+      inputPositions: []
+      answer: 0
+    - hint: 
+      position: {x: -2.69481492, y: .58474952, z: 0}
+      inputPositions: []
+      answer: 1
+  - question: "Draw a logic circuit for \xAC(A + B)(C + D)\xACC."
+    KC: 
+    answeredQuestion: 0
+    steps:
+    - hint: 
+      position: {x: -5.95676422, y: -1.269647, z: 0}
+      inputPositions: []
+      answer: 2
+    - hint: 
+      position: {x: -5.95676422, y: .58474952, z: 0}
+      inputPositions: []
+      answer: 4
+    - hint: 
+      position: {x: -2.69481492, y: .58474952, z: 0}
+      inputPositions: []
+      answer: 1
+    - hint: 
+      position: {x: -2.69481492, y: .58474952, z: 0}
+      inputPositions: []
+      answer: 0
   analyzer: {fileID: 1042244452}
   spark: {fileID: 100000, guid: 7a598717ded698c4dbdd57c2260fa1e1, type: 2}
   spark2: {fileID: 100000, guid: c994fde8e6848a3771503f184e0c9cb4, type: 2}
