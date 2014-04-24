@@ -14,10 +14,13 @@ public class Title : MonoBehaviour
     public Rect PlayButton = new Rect(0f, 0f, 50f, 20f);
     public Rect InstructButton = new Rect(0f, 60f, 50f, 20f);
     public Rect BackButton = new Rect(0f, 60f, 50f, 20f);
+    public Rect QuitButton = new Rect(0f, 60f, 50f, 20f);
 
     // Username Input Field Vars
     public Rect UsernameField = new Rect(0f, 80f, 50f, 20f);
+    public Rect PasswordField = new Rect(0f, 80f, 50f, 20f);
     private string userName = "User";
+    private string passWord = "Password";
 
     // Private Vars
     private string titleText = "";
@@ -59,6 +62,7 @@ public class Title : MonoBehaviour
         {
         case 0:
             userName = GUI.TextField(adjRect(UsernameField), userName);
+            passWord = GUI.PasswordField(adjRect(PasswordField), passWord, '☺');
             if (GUI.Button(adjRect(PlayButton), "Play"))
             {
                 audio.Play();
@@ -71,6 +75,10 @@ public class Title : MonoBehaviour
                 titleText = "Instructions";
                 scene = 1;
             }
+            if (GUI.Button(adjRect(QuitButton), "Quit"))
+            {
+                Application.Quit();
+            }
             break;
         case 1: // Instructions
             if (GUI.Button(adjRect(BackButton), "Back"))
@@ -79,8 +87,11 @@ public class Title : MonoBehaviour
                 titleText = GameTitle;
                 scene = 0;
             }
-            string instructText = "How To Play: kfjsdiofwsdmxcvhuis";
-            GUI.Label(new Rect(0f, Screen.height * 0.8f, Screen.width, Screen.height * 0.2f), instructText);
+            string instructText = "Click and drag logic gates into the green boxes in order to draw the logic gate diagrams as specified by the command prompt's title.";
+            GUI.skin = titleSkin;
+            GUI.skin.box.fontSize = 20;
+            GUI.skin.box.wordWrap = true;
+            GUI.Box(new Rect(Screen.width * 0.2f, Screen.height * 0.4f, Screen.width*0.6f, Screen.height * 0.2f), instructText);
             break;
         default:
             break;

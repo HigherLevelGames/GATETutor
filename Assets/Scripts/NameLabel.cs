@@ -6,20 +6,8 @@ public class NameLabel : MonoBehaviour
     string[] tags = { "And", "Nand", "Nor", "Not", "Or" };
     public GUISkin skin;
     public Font font;
-    float width = 40;
-    float height = 20;
-    //float width = 50;
-    //float height = 20;
-
-    // Use this for initialization
-	void Start () {
-        
-    }
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    private float width = 50;
+    private float height = 20;
 
     void OnGUI()
     {
@@ -37,8 +25,7 @@ public class NameLabel : MonoBehaviour
                 if (t == "Not" || t == "Nand") center.x -= 20;
                 if (t == "Nor") center.x -= 15;
                 center.y = Screen.height - center.y;
-                //GUI.Label(new Rect(center.x - width / 2.0f, center.y - height / 2.0f, width, height), t);
-                GUI.Box(new Rect(center.x-width/2.0f, center.y-height/2.0f,width,height), t);
+                GUI.Box(new Rect(center.x - width / 2.0f, center.y - height / 2.0f, width, height), t);
             }
         }
     }

@@ -126,13 +126,25 @@ MonoBehaviour:
   BackButton:
     serializedVersion: 2
     x: 55
-    y: 60
+    y: 70
+    width: 35
+    height: 5
+  QuitButton:
+    serializedVersion: 2
+    x: 55
+    y: 70
     width: 35
     height: 5
   UsernameField:
     serializedVersion: 2
     x: 10
     y: 50
+    width: 35
+    height: 5
+  PasswordField:
+    serializedVersion: 2
+    x: 10
+    y: 60
     width: 35
     height: 5
 --- !u!81 &3862356

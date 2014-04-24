@@ -31,6 +31,7 @@ public class Console : MonoBehaviour
         if (skin != null) GUI.skin = skin;
         if (font != null) GUI.skin.font = font;
         // draw a window
+        GUI.skin.label.fontSize = 20;
         rctWindow = GUI.Window(0, rctWindow, winFunc, title);
     }
 

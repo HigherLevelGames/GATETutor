@@ -33,7 +33,8 @@ using System.Collections;
 public class PedagogicalModule : MonoBehaviour
 {
     public GUISkin skinButton;
-    public Rect nextButton = new Rect(75, 80, 25, 10);
+    private Rect nextButton = new Rect(80, 80, 15, 5);
+    private Rect quitButton = new Rect(80, 85, 15, 5);
     public Font buttonFont;
     public Task[] tasks;
     public StepAnalyzer analyzer;
@@ -95,6 +96,12 @@ public class PedagogicalModule : MonoBehaviour
                 NextTask();
                 showNext = false;
             }
+        }
+
+        if (GUI.Button(adjRect(quitButton), "Quit"))
+        {
+            Application.Quit();
+            //Application.LoadLevel("End");
         }
 
         /*
@@ -179,6 +186,7 @@ public class PedagogicalModule : MonoBehaviour
     // called by step analyzer to inform pedagogical module of a correct step
     public void NextStep()
     {
+        PlayerPrefs.SetInt("Correct", PlayerPrefs.GetInt("Correct") + 1);
         Vector3 prevPos = currentTask.currentStep.position;
         currentTask.stepNum++;
         currentTask.currentStep.inputPositions.Add(prevPos);
@@ -189,6 +197,9 @@ public class PedagogicalModule : MonoBehaviour
             audio.clip = finishedTaskSFX;
             audio.Play();
             showNext = true; // to show the next button and give student a chance to review his/her work
+            this.SendMessage("AddLine", "Number of Correct: " + PlayerPrefs.GetInt("Correct") + " Number of Incorrect: " + PlayerPrefs.GetInt("Incorrect"));
+            PlayerPrefs.DeleteKey("Correct");
+            PlayerPrefs.DeleteKey("Incorrect");
         }
         else // correct step
         {
@@ -202,6 +213,7 @@ public class PedagogicalModule : MonoBehaviour
     // called by step analyzer to inform pedagogical module of an incorrect step
     public void IncorrectStep(string answered)
     {
+        PlayerPrefs.SetInt("Incorrect", PlayerPrefs.GetInt("Incorrect") + 1);
         // play sound
         audio.clip = wrongSFX;
         audio.Play();
