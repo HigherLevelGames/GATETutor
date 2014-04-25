@@ -375,7 +375,7 @@ MonoBehaviour:
   currentStep:
     hint: 
     position: {x: 0, y: 0, z: 0}
-    inputPositions: []
+    inputLines: []
     answer: 0
   width: 100
 --- !u!1 &1126171073
@@ -640,7 +640,7 @@ Behaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1329928651}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!20 &1329928655
 Camera:
   m_ObjectHideFlags: 0
@@ -801,7 +801,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1376982042
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1030,11 +1030,21 @@ MonoBehaviour:
     steps:
     - hint: 
       position: {x: -3.71393991, y: 0, z: 0}
-      inputPositions: []
+      inputLines:
+      - begin: {x: 4, y: 7}
+        end: {x: 7, y: 7}
+      - begin: {x: 4, y: 9}
+        end: {x: 7, y: 9}
       answer: 1
     - hint: 
       position: {x: -2.00220895, y: -1.15793598, z: 0}
-      inputPositions: []
+      inputLines:
+      - begin: {x: 4, y: 12}
+        end: {x: 16, y: 10}
+      - begin: {x: 12, y: 8}
+        end: {x: 16, y: 8}
+      - begin: {x: 20, y: 9}
+        end: {x: 23, y: 9}
       answer: 0
   - question: "Draw a logic circuit for A + BC + \xACD."
     KC: 
@@ -1042,15 +1052,29 @@ MonoBehaviour:
     steps:
     - hint: 
       position: {x: -5.95676422, y: -1.269647, z: 0}
-      inputPositions: []
+      inputLines:
+      - begin: {x: 5, y: 14}
+        end: {x: 7, y: 14}
       answer: 2
     - hint: 
       position: {x: -5.95676422, y: .58474952, z: 0}
-      inputPositions: []
+      inputLines:
+      - begin: {x: 5, y: 8}
+        end: {x: 7, y: 8}
+      - begin: {x: 5, y: 10}
+        end: {x: 7, y: 10}
       answer: 0
     - hint: 
       position: {x: -2.69481492, y: .58474952, z: 0}
-      inputPositions: []
+      inputLines:
+      - begin: {x: 5, y: 5}
+        end: {x: 15, y: 7}
+      - begin: {x: 11, y: 9}
+        end: {x: 15, y: 9}
+      - begin: {x: 11, y: 14}
+        end: {x: 15, y: 11}
+      - begin: {x: 20, y: 9}
+        end: {x: 23, y: 9}
       answer: 1
   - question: "Draw a logic circuit for AB + \xAC(AC)."
     KC: 
@@ -1058,15 +1082,29 @@ MonoBehaviour:
     steps:
     - hint: 
       position: {x: -5.95676422, y: -1.269647, z: 0}
-      inputPositions: []
+      inputLines:
+      - begin: {x: 3, y: 5}
+        end: {x: 9, y: 5}
+      - begin: {x: 3, y: 7}
+        end: {x: 9, y: 7}
       answer: 3
     - hint: 
       position: {x: -5.95676422, y: .58474952, z: 0}
-      inputPositions: []
+      inputLines:
+      - begin: {x: 3, y: 5}
+        end: {x: 9, y: 12}
+      - begin: {x: 3, y: 14}
+        end: {x: 9, y: 14}
       answer: 0
     - hint: 
       position: {x: -2.69481492, y: .58474952, z: 0}
-      inputPositions: []
+      inputLines:
+      - begin: {x: 13, y: 6}
+        end: {x: 17, y: 8.5}
+      - begin: {x: 13, y: 13}
+        end: {x: 17, y: 10.5}
+      - begin: {x: 21.5, y: 9.5}
+        end: {x: 24, y: 9.5}
       answer: 1
   - question: "Draw a logic circuit for \xAC(A + B)(C + D)\xACC."
     KC: 
@@ -1074,19 +1112,37 @@ MonoBehaviour:
     steps:
     - hint: 
       position: {x: -5.95676422, y: -1.269647, z: 0}
-      inputPositions: []
+      inputLines:
+      - begin: {x: 2, y: 15}
+        end: {x: 8, y: 10}
       answer: 2
     - hint: 
       position: {x: -5.95676422, y: .58474952, z: 0}
-      inputPositions: []
+      inputLines:
+      - begin: {x: 2, y: 3}
+        end: {x: 8, y: 3}
+      - begin: {x: 2, y: 5}
+        end: {x: 8, y: 5}
       answer: 4
     - hint: 
       position: {x: -2.69481492, y: .58474952, z: 0}
-      inputPositions: []
+      inputLines:
+      - begin: {x: 2, y: 15}
+        end: {x: 8, y: 15}
+      - begin: {x: 2, y: 17}
+        end: {x: 8, y: 17}
       answer: 1
     - hint: 
       position: {x: -2.69481492, y: .58474952, z: 0}
-      inputPositions: []
+      inputLines:
+      - begin: {x: 13, y: 4}
+        end: {x: 17, y: 8}
+      - begin: {x: 12, y: 10}
+        end: {x: 17, y: 10}
+      - begin: {x: 12, y: 16}
+        end: {x: 17, y: 12}
+      - begin: {x: 20, y: 10}
+        end: {x: 23, y: 10}
       answer: 0
   analyzer: {fileID: 1042244452}
   spark: {fileID: 100000, guid: 7a598717ded698c4dbdd57c2260fa1e1, type: 2}

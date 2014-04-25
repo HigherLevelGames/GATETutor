@@ -147,6 +147,10 @@ public class PedagogicalModule : MonoBehaviour
             taskNum++;
             currentTask = tasks[taskNum];
         }
+        else
+        {
+            Application.LoadLevel("End");
+        }
         SetStep();
     }
 
@@ -189,7 +193,7 @@ public class PedagogicalModule : MonoBehaviour
         PlayerPrefs.SetInt("Correct", PlayerPrefs.GetInt("Correct") + 1);
         Vector3 prevPos = currentTask.currentStep.position;
         currentTask.stepNum++;
-        currentTask.currentStep.inputPositions.Add(prevPos);
+        //currentTask.currentStep.inputPositions.Add(prevPos);
         if (currentTask.answeredQuestion) // finished task
         {
             this.SendMessage("AddLine", "Complete!");

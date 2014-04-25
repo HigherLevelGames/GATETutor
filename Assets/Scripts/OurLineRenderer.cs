@@ -20,6 +20,17 @@ public class OurLineRenderer : MonoBehaviour
 	
 	}
 
+    void SetStart1(Vector2 p)
+    {
+        Debug.Log("Print position: " + p);
+        point1 = p;//new Vector2(p.x, Screen.height - p.y);
+    }
+
+    void SetEnd1(Vector2 p)
+    {
+        point2 = p;//new Vector2(p.x, Screen.height - p.y);
+    }
+
     void SetStart(Vector3 p)
     {
         Vector3 temp = Camera.main.WorldToScreenPoint(p);

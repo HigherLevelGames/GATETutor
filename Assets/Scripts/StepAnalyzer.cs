@@ -86,12 +86,17 @@ public class StepAnalyzer : MonoBehaviour
             // assign entered gate to locked gate
             col.gameObject.transform.position = this.transform.position;
             col.gameObject.GetComponent<ClickAndDrag>().isDraggable = false;
-            foreach (Vector3 p in currentStep.inputPositions)
+            foreach (Line l in currentStep.inputLines)
             {
                // Debug.Log("has inputs: " + this.transform.position + " and " + p);
-                col.gameObject.AddComponent<OurLineRenderer>();
-                col.gameObject.SendMessage("SetStart", this.transform.position); // previous
-                col.gameObject.SendMessage("SetEnd", p); // current
+                GameObject obj = new GameObject();
+                obj.tag = "ToClean";
+                obj.AddComponent<OurLineRenderer>();
+                obj.SendMessage("SetStart1", adjPoint(l.begin)); // previous
+                obj.SendMessage("SetEnd1", adjPoint(l.end)); // current
+                //col.gameObject.AddComponent<OurLineRenderer>();
+                //col.gameObject.SendMessage("SetStart1", adjPoint(l.begin)); // previous
+                //col.gameObject.SendMessage("SetEnd1", adjPoint(l.end)); // current
             }
             col.gameObject.SendMessage("Respawn");
 
@@ -103,5 +108,12 @@ public class StepAnalyzer : MonoBehaviour
             col.gameObject.SendMessage("Return");
             GameObject.Find("PedagogicalModule").SendMessage("IncorrectStep", col.gameObject.tag);
         }
+    }
+
+    Vector2 adjPoint(Vector2 l)
+    {
+        Debug.Log("pt " + l);
+        Vector2 pt = new Vector2(l.x*(Screen.width*0.75f)/25.0f, l.y*Screen.height/20.0f);
+        return pt;
     }
 }

@@ -7,7 +7,8 @@ public class Step
 {
     public string hint;
     public Vector3 position; // current position <-
-    public List<Vector3> inputPositions = new List<Vector3>();
+    //public List<Vector2> inputPositions = new List<Vector2>();
+    public List<Line> inputLines = new List<Line>();
 
     public enum AnswerOption
     {
@@ -18,4 +19,11 @@ public class Step
         Nor
     }
     public AnswerOption answer;
+}
+
+[System.Serializable]
+public class Line
+{
+    public Vector2 begin;
+    public Vector2 end;
 }
