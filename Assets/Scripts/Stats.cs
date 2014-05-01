@@ -21,16 +21,31 @@ using System.Collections;
 
 public class Stats : MonoBehaviour
 {
+    public GUISkin skin;
+    private string[] history;
+    private Vector2[] scrollPositions;
+
 	// Use this for initialization
-	void Start () {
+	void Start ()
+    {
+        history = PlayerPrefs.GetString("StepHistory").Split('\t');
+        scrollPositions = new Vector2[history.Length-1];
+        for (int i = 0; i < history.Length - 1; i++)
+        {
+            int numCorrect = PlayerPrefs.GetInt("c" + i);
+            int numIncorrect = PlayerPrefs.GetInt("i" + i);
+            Debug.Log(numCorrect + ", " + numIncorrect);
+            // pie chart set data
+        }
 	}
 	
 	// Update is called once per frame
 	void Update () {
 	}
-
+    
     void OnGUI()
     {
+        GUI.skin = skin;
         string text = "Performance";
 
         /*
@@ -41,6 +56,25 @@ public class Stats : MonoBehaviour
             text += KC + ": " + PlayerPrefs.GetInt(KC);
         }
         //*/
+
+        float width = Screen.width/(history.Length-1);
+        for (int i = 0; i < history.Length - 1; i++)
+        {
+            Rect scrollRect = new Rect(0 + i * width, Screen.height * 0.5f, width, Screen.height * 0.3f);
+            string step = history[i];
+            float height = GUI.skin.box.CalcHeight(new GUIContent(step), width);
+
+            // begin scroll view
+            scrollPositions[i] = GUI.BeginScrollView(
+                    scrollRect, // scroll rectangle
+                    scrollPositions[i],
+                    new Rect(0, 0, width, height) // view inside scroll rectangle
+                    );
+            GUI.Box(new Rect(0, 0, width, height), step);
+
+            // end scroll view and make window draggable
+            GUI.EndScrollView();
+        }
 
         GUI.Label(new Rect(0, 0, Screen.width, Screen.height*0.1f), text);
         //GUI.Box(new Rect(0,0,Screen.width, Screen.height),text);

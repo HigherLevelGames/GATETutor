@@ -373,10 +373,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   answer: And
   currentStep:
-    hint: 
-    position: {x: 0, y: 0, z: 0}
-    inputLines: []
+    Position2D: {x: 0, y: 0}
     answer: 0
+    hint: 
+    inputLines: []
   width: 100
 --- !u!1 &1126171073
 GameObject:
@@ -786,47 +786,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!1 &1376982041
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1376982043}
-  - 114: {fileID: 1376982042}
-  m_Layer: 10
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &1376982042
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1376982041}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 263932468e6f05e4e978ce28f9322878, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  point1: {x: 50, y: 50}
-  point2: {x: 180, y: 180}
-  lineWidth: 5
---- !u!4 &1376982043
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1376982041}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
 --- !u!1 &1547482538
 GameObject:
   m_ObjectHideFlags: 0
@@ -1028,16 +987,17 @@ MonoBehaviour:
     KC: 
     answeredQuestion: 0
     steps:
-    - hint: 
-      position: {x: -3.71393991, y: 0, z: 0}
+    - Position2D: {x: 10, y: 8}
+      answer: 1
+      hint: Test
       inputLines:
       - begin: {x: 4, y: 7}
         end: {x: 7, y: 7}
       - begin: {x: 4, y: 9}
         end: {x: 7, y: 9}
-      answer: 1
-    - hint: 
-      position: {x: -2.00220895, y: -1.15793598, z: 0}
+    - Position2D: {x: 18, y: 9}
+      answer: 0
+      hint: Test 2
       inputLines:
       - begin: {x: 4, y: 12}
         end: {x: 16, y: 10}
@@ -1045,27 +1005,27 @@ MonoBehaviour:
         end: {x: 16, y: 8}
       - begin: {x: 20, y: 9}
         end: {x: 23, y: 9}
-      answer: 0
   - question: "Draw a logic circuit for A + BC + \xACD."
     KC: 
     answeredQuestion: 0
     steps:
-    - hint: 
-      position: {x: -5.95676422, y: -1.269647, z: 0}
+    - Position2D: {x: 9, y: 14}
+      answer: 2
+      hint: 
       inputLines:
       - begin: {x: 5, y: 14}
         end: {x: 7, y: 14}
-      answer: 2
-    - hint: 
-      position: {x: -5.95676422, y: .58474952, z: 0}
+    - Position2D: {x: 9, y: 9}
+      answer: 0
+      hint: 
       inputLines:
       - begin: {x: 5, y: 8}
         end: {x: 7, y: 8}
       - begin: {x: 5, y: 10}
         end: {x: 7, y: 10}
-      answer: 0
-    - hint: 
-      position: {x: -2.69481492, y: .58474952, z: 0}
+    - Position2D: {x: 17, y: 9}
+      answer: 1
+      hint: 
       inputLines:
       - begin: {x: 5, y: 5}
         end: {x: 15, y: 7}
@@ -1075,29 +1035,29 @@ MonoBehaviour:
         end: {x: 15, y: 11}
       - begin: {x: 20, y: 9}
         end: {x: 23, y: 9}
-      answer: 1
   - question: "Draw a logic circuit for AB + \xAC(AC)."
     KC: 
     answeredQuestion: 0
     steps:
-    - hint: 
-      position: {x: -5.95676422, y: -1.269647, z: 0}
+    - Position2D: {x: 11, y: 6}
+      answer: 3
+      hint: 
       inputLines:
       - begin: {x: 3, y: 5}
         end: {x: 9, y: 5}
       - begin: {x: 3, y: 7}
         end: {x: 9, y: 7}
-      answer: 3
-    - hint: 
-      position: {x: -5.95676422, y: .58474952, z: 0}
+    - Position2D: {x: 11, y: 13}
+      answer: 0
+      hint: 
       inputLines:
       - begin: {x: 3, y: 5}
         end: {x: 9, y: 12}
       - begin: {x: 3, y: 14}
         end: {x: 9, y: 14}
-      answer: 0
-    - hint: 
-      position: {x: -2.69481492, y: .58474952, z: 0}
+    - Position2D: {x: 19, y: 9.5}
+      answer: 1
+      hint: 
       inputLines:
       - begin: {x: 13, y: 6}
         end: {x: 17, y: 8.5}
@@ -1105,35 +1065,35 @@ MonoBehaviour:
         end: {x: 17, y: 10.5}
       - begin: {x: 21.5, y: 9.5}
         end: {x: 24, y: 9.5}
-      answer: 1
   - question: "Draw a logic circuit for \xAC(A + B)(C + D)\xACC."
     KC: 
     answeredQuestion: 0
     steps:
-    - hint: 
-      position: {x: -5.95676422, y: -1.269647, z: 0}
+    - Position2D: {x: 10, y: 10}
+      answer: 2
+      hint: 
       inputLines:
       - begin: {x: 2, y: 15}
         end: {x: 8, y: 10}
-      answer: 2
-    - hint: 
-      position: {x: -5.95676422, y: .58474952, z: 0}
+    - Position2D: {x: 10, y: 4}
+      answer: 4
+      hint: 
       inputLines:
       - begin: {x: 2, y: 3}
         end: {x: 8, y: 3}
       - begin: {x: 2, y: 5}
         end: {x: 8, y: 5}
-      answer: 4
-    - hint: 
-      position: {x: -2.69481492, y: .58474952, z: 0}
+    - Position2D: {x: 10, y: 16}
+      answer: 1
+      hint: 
       inputLines:
       - begin: {x: 2, y: 15}
         end: {x: 8, y: 15}
       - begin: {x: 2, y: 17}
         end: {x: 8, y: 17}
-      answer: 1
-    - hint: 
-      position: {x: -2.69481492, y: .58474952, z: 0}
+    - Position2D: {x: 18.5, y: 10}
+      answer: 0
+      hint: 
       inputLines:
       - begin: {x: 13, y: 4}
         end: {x: 17, y: 8}
@@ -1143,7 +1103,6 @@ MonoBehaviour:
         end: {x: 17, y: 12}
       - begin: {x: 20, y: 10}
         end: {x: 23, y: 10}
-      answer: 0
   analyzer: {fileID: 1042244452}
   spark: {fileID: 100000, guid: 7a598717ded698c4dbdd57c2260fa1e1, type: 2}
   spark2: {fileID: 100000, guid: c994fde8e6848a3771503f184e0c9cb4, type: 2}

@@ -61,8 +61,23 @@ public class Title : MonoBehaviour
         switch (scene)
         {
         case 0:
-            userName = GUI.TextField(adjRect(UsernameField), userName);
-            passWord = GUI.PasswordField(adjRect(PasswordField), passWord, '☺');
+            // User Name Field
+            Rect temp = adjRect(UsernameField);
+            temp.width /= 3.0f;
+            GUI.TextArea(temp, "User Name: ");
+            temp.x += temp.width;
+            temp.width *= 2.0f;
+            userName = GUI.TextField(temp, userName);
+
+            // Password Field
+            temp = adjRect(PasswordField);
+            temp.width /= 3.0f;
+            GUI.TextArea(temp, "Password: ");
+            temp.x += temp.width;
+            temp.width *= 2.0f;
+            passWord = GUI.PasswordField(temp, passWord, '*'/*'☺'*/);
+
+            // Buttons
             if (GUI.Button(adjRect(PlayButton), "Play"))
             {
                 audio.Play();

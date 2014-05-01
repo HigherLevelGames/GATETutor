@@ -5,11 +5,7 @@ using System.Collections.Generic;
 [System.Serializable]
 public class Step
 {
-    public string hint;
-    public Vector3 position; // current position <-
-    //public List<Vector2> inputPositions = new List<Vector2>();
-    public List<Line> inputLines = new List<Line>();
-
+    public Vector2 Position2D;
     public enum AnswerOption
     {
         And,
@@ -19,6 +15,8 @@ public class Step
         Nor
     }
     public AnswerOption answer;
+    public string hint;
+    public List<Line> inputLines = new List<Line>();
 }
 
 [System.Serializable]

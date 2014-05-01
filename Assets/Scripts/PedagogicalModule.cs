@@ -55,6 +55,7 @@ public class PedagogicalModule : MonoBehaviour
     {
         taskNum = 0;
         currentTask = tasks[taskNum];
+        this.SendMessage("AddLine", currentTask.question);
         SetStep();
 	}
 
@@ -146,6 +147,7 @@ public class PedagogicalModule : MonoBehaviour
         {
             taskNum++;
             currentTask = tasks[taskNum];
+            this.SendMessage("AddLine", currentTask.question);
         }
         else
         {
@@ -191,9 +193,8 @@ public class PedagogicalModule : MonoBehaviour
     public void NextStep()
     {
         PlayerPrefs.SetInt("Correct", PlayerPrefs.GetInt("Correct") + 1);
-        Vector3 prevPos = currentTask.currentStep.position;
         currentTask.stepNum++;
-        //currentTask.currentStep.inputPositions.Add(prevPos);
+        
         if (currentTask.answeredQuestion) // finished task
         {
             this.SendMessage("AddLine", "Complete!");
@@ -201,13 +202,17 @@ public class PedagogicalModule : MonoBehaviour
             audio.clip = finishedTaskSFX;
             audio.Play();
             showNext = true; // to show the next button and give student a chance to review his/her work
-            this.SendMessage("AddLine", "Number of Correct: " + PlayerPrefs.GetInt("Correct") + " Number of Incorrect: " + PlayerPrefs.GetInt("Incorrect"));
+            int numCorrect = PlayerPrefs.GetInt("Correct");
+            int numIncorrect = PlayerPrefs.GetInt("Incorrect");
+            this.SendMessage("AddLine", "Number of Correct: " + numCorrect + " Number of Incorrect: " + numIncorrect);
+            PlayerPrefs.SetInt("c" + taskNum, numCorrect);
+            PlayerPrefs.SetInt("i" + taskNum, numIncorrect);
             PlayerPrefs.DeleteKey("Correct");
             PlayerPrefs.DeleteKey("Incorrect");
         }
         else // correct step
         {
-            this.SendMessage("AddLine", "Correct");
+            this.SendMessage("AddLine", "Correct!");
             audio.clip = correctSFX;
             audio.Play();
             SetStep();
@@ -223,13 +228,14 @@ public class PedagogicalModule : MonoBehaviour
         audio.Play();
 
         // create particle
-        GameObject temp = (GameObject)Instantiate(spark, currentTask.currentStep.position, Quaternion.identity);
+        GameObject temp = (GameObject)Instantiate(spark, analyzer.transform.position, Quaternion.identity);
         Destroy(temp, 0.7f);
-        GameObject temp2 = (GameObject)Instantiate(spark2, currentTask.currentStep.position, Quaternion.identity);
+        GameObject temp2 = (GameObject)Instantiate(spark2, analyzer.transform.position, Quaternion.identity);
         Destroy(temp2, 0.5f);
 
         // show hint on console
         this.SendMessage("AddLine", "Incorrect: You answered: " + answered);
+        this.SendMessage("AddLine", currentTask.currentStep.hint);
     }
 
     public void GiveHint()

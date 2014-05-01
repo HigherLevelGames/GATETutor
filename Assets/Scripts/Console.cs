@@ -6,18 +6,21 @@ public class Console : MonoBehaviour
     public GUISkin skin;
     public Font font;
     private string title = "";
-    private Rect rctWindow = new Rect(0, 0, Screen.width * 0.5f, Screen.height * 0.25f);
+    private Rect rctWindow = new Rect(Screen.width * 0.1f, Screen.height * 0.7f, Screen.width * 0.5f, Screen.height * 0.25f);
     private Vector2 scrollPosition = Vector2.zero;
     private ArrayList consoleLines = new ArrayList();
+    public ArrayList StepAttemptHistory = new ArrayList();
 
     void AddLine(string line)
     {
+        StepAttemptHistory.Add(line);
         consoleLines.Add(PlayerPrefs.GetString("Username") + "@GATETutor:~$ " + line);
         scrollPosition.y = Mathf.Infinity; // scroll to bottom
     }
 
     void ClearConsole()
     {
+        StepAttemptHistory.Add("\t");
         consoleLines.Clear();
     }
 
@@ -33,6 +36,17 @@ public class Console : MonoBehaviour
         // draw a window
         GUI.skin.label.fontSize = 20;
         rctWindow = GUI.Window(0, rctWindow, winFunc, title);
+        Debug.Log(rctWindow);
+    }
+
+    void OnDestroy()
+    {
+        string hello = "";
+        foreach (string step in StepAttemptHistory)
+        {
+            hello += step + "\n";
+        }
+        PlayerPrefs.SetString("StepHistory", hello);
     }
 
     // the actual window
@@ -50,7 +64,7 @@ public class Console : MonoBehaviour
         
         // console background
         Vector2 temp = new Vector2(Input.mousePosition.x,Screen.height - Input.mousePosition.y);
-        GUI.backgroundColor = Color.black;//(rctWindow.Contains(temp)) ? Color.black : Color.black * 0.8f;
+        GUI.backgroundColor = Color.black;
         GUI.Box(scrollRect, "");
         GUI.backgroundColor = Color.white; // white again for vertical scroll bar
 
@@ -66,7 +80,20 @@ public class Console : MonoBehaviour
         foreach (string l in consoleLines)
         {
             float lineHeight = GUI.skin.GetStyle("Label").CalcHeight(new GUIContent(l), consoleWidth);
-            GUI.skin.label.normal.textColor = (l.Contains("Incorrect")) ? Color.red : Color.green;
+            Color c = Color.white;
+            if (l.Contains("Incorrect") && l.Contains("Correct"))
+            {
+                c = Color.white;
+            }
+            else if (l.Contains("Incorrect"))
+            {
+                c = Color.red;
+            }
+            else if (l.Contains("Correct") || l.Contains("Complete"))
+            {
+                c = Color.green;
+            }
+            GUI.skin.label.normal.textColor = c;
             GUI.Label(new Rect(0+5, offset, consoleWidth, lineHeight), l);
             offset += lineHeight;
         }

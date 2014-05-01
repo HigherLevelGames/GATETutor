@@ -48,12 +48,8 @@ public class StepAnalyzer : MonoBehaviour
         }
         wireTexture.Apply();
     }
-	
-	// Update is called once per frame
-	void Update ()
-    {
-    }
 
+    // OnGUI() draws a green square outline
     void OnGUI()
     {
         Vector3 pt = Camera.main.WorldToScreenPoint(this.transform.position);
@@ -62,9 +58,19 @@ public class StepAnalyzer : MonoBehaviour
 
     void SetStep(Step a)
     {
+        // set the current step and answer
         currentStep = a;
-        this.transform.position = a.position;
         answer = a.answer.ToString();
+
+        // get the position where the player should click and drag their gate onto
+        Vector2 pos = adjPoint(a.Position2D);
+
+        // convert the position to the screen position, camera is 10 units away from zero
+        float distanceFromCamera = 10;
+        Vector3 screenPos = new Vector3(pos.x, Screen.height - pos.y, distanceFromCamera);
+
+        // get the screen position into world coordinates
+        this.transform.position = Camera.main.ScreenToWorldPoint(screenPos);        
     }
 
     public void AnswerCorrect()
@@ -78,6 +84,7 @@ public class StepAnalyzer : MonoBehaviour
     }
 
     // once gate enters the trigger
+    // analyzes whether it is wrong or correct
     void OnTriggerEnter(Collider col)
     {
         if (col.gameObject.tag == answer)
@@ -86,20 +93,19 @@ public class StepAnalyzer : MonoBehaviour
             // assign entered gate to locked gate
             col.gameObject.transform.position = this.transform.position;
             col.gameObject.GetComponent<ClickAndDrag>().isDraggable = false;
+
+            // Create input lines that are created for locked gates
             foreach (Line l in currentStep.inputLines)
             {
-               // Debug.Log("has inputs: " + this.transform.position + " and " + p);
                 GameObject obj = new GameObject();
                 obj.tag = "ToClean";
                 obj.AddComponent<OurLineRenderer>();
                 obj.SendMessage("SetStart1", adjPoint(l.begin)); // previous
                 obj.SendMessage("SetEnd1", adjPoint(l.end)); // current
-                //col.gameObject.AddComponent<OurLineRenderer>();
-                //col.gameObject.SendMessage("SetStart1", adjPoint(l.begin)); // previous
-                //col.gameObject.SendMessage("SetEnd1", adjPoint(l.end)); // current
             }
             col.gameObject.SendMessage("Respawn");
 
+            // Tell the pedagogical module that we're ready for the next step (or task)
             GameObject.Find("PedagogicalModule").SendMessage("NextStep");
         }
         else
@@ -112,8 +118,9 @@ public class StepAnalyzer : MonoBehaviour
 
     Vector2 adjPoint(Vector2 l)
     {
-        Debug.Log("pt " + l);
-        Vector2 pt = new Vector2(l.x*(Screen.width*0.75f)/25.0f, l.y*Screen.height/20.0f);
+        // The point stored in step is based on a 25x20 grid
+        // the canvas takes up 75% of the screen
+        Vector2 pt = new Vector2(l.x*(Screen.width*0.75f)/25.0f, l.y*(Screen.height*0.75f)/20.0f);
         return pt;
     }
 }

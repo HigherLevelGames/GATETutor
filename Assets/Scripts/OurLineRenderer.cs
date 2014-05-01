@@ -5,7 +5,7 @@ public class OurLineRenderer : MonoBehaviour
 {
     public Vector2 point1 = new Vector2(0, 0);
     public Vector2 point2 = new Vector2(20, 20);
-    public int lineWidth = 5;
+    private int lineWidth = 2;
     private Texture2D blankTexture;
 
 	// Use this for initialization
@@ -22,15 +22,15 @@ public class OurLineRenderer : MonoBehaviour
 
     void SetStart1(Vector2 p)
     {
-        Debug.Log("Print position: " + p);
-        point1 = p;//new Vector2(p.x, Screen.height - p.y);
+        point1 = p;
     }
 
     void SetEnd1(Vector2 p)
     {
-        point2 = p;//new Vector2(p.x, Screen.height - p.y);
+        point2 = p;
     }
 
+    /*
     void SetStart(Vector3 p)
     {
         Vector3 temp = Camera.main.WorldToScreenPoint(p);
@@ -41,13 +41,14 @@ public class OurLineRenderer : MonoBehaviour
     {
         Vector3 temp = Camera.main.WorldToScreenPoint(p);
         point2 = new Vector2(temp.x, Screen.height - temp.y);
-    }
+    }//*/
 
     void OnGUI()
     {
-        // first horizontal line
         float mid = (point1.x + point2.x) / 2.0f;
         //Debug.Log(mid);
+
+        // first horizontal line
         Rect line = new Rect(point1.x, point1.y, mid - point1.x, lineWidth);
         GUI.DrawTexture(line, blankTexture);
 
