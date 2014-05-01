@@ -28,6 +28,7 @@ public class StepAnalyzer : MonoBehaviour
     public Step currentStep;
     private Texture2D wireTexture;
     public float width = 100;
+    public bool showMe = true;
 
 	// Use this for initialization
 	void Start ()
@@ -52,8 +53,38 @@ public class StepAnalyzer : MonoBehaviour
     // OnGUI() draws a green square outline
     void OnGUI()
     {
+        //DrawGrid();
+
+        if (!showMe)
+        {
+            return;
+        }
+
         Vector3 pt = Camera.main.WorldToScreenPoint(this.transform.position);
         GUI.DrawTexture(new Rect(pt.x - width / 2.0f, Screen.height - pt.y - width / 2.0f, width, width), wireTexture);
+    }
+
+    void DrawGrid()
+    {
+        // Numbered labels
+        for (int i = 0; i < 25 + 1; i++)// width
+        {
+            GUI.Label(new Rect(i * Screen.width * 0.75f / 25.0f, 0, Screen.width * 0.75f / 25.0f, Screen.height * 0.75f / 20.0f), "" + i);
+        }
+        for (int j = 0; j < 20 + 1; j++) // height
+        {
+            GUI.Label(new Rect(0, j * Screen.height * 0.75f / 20.0f, Screen.width * 0.75f / 25.0f, Screen.height * 0.75f / 20.0f), "" + j);
+        }
+
+        // The point stored in step is based on a 25x20 grid
+        for (int i = 0; i < 25; i++)// width
+        {
+            for (int j = 0; j < 20; j++) // height
+            {
+                Vector2 pt1 = adjPoint(new Vector2(i, j));
+                GUI.DrawTexture(new Rect(pt1.x, pt1.y, Screen.width * 0.75f / 25.0f, Screen.height * 0.75f / 20.0f), wireTexture);
+            }
+        }
     }
 
     void SetStep(Step a)
@@ -87,6 +118,11 @@ public class StepAnalyzer : MonoBehaviour
     // analyzes whether it is wrong or correct
     void OnTriggerEnter(Collider col)
     {
+        if (!showMe)
+        {
+            return;
+        }
+
         if (col.gameObject.tag == answer)
         {
             Debug.Log("correct answer");

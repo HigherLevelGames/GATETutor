@@ -108,6 +108,6 @@ public class Console : MonoBehaviour
 
         // end scroll view and make window draggable
         GUI.EndScrollView();
-        GUI.DragWindow();
+        //GUI.DragWindow();
     }
 }

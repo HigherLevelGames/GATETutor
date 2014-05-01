@@ -50,7 +50,7 @@ public class PedagogicalModule : MonoBehaviour
     private int taskNum;
     private bool showNext = false;
     private int numWrong = 0;
-    
+    private bool isMute = false;
 	// Use this for initialization
 	void Start ()
     {
@@ -64,7 +64,15 @@ public class PedagogicalModule : MonoBehaviour
     {
         GUI.skin = skinButton;
         GUI.skin.font = buttonFont;
-
+        isMute = GUI.Toggle(adjRect(new Rect(80, 75, 15, 5)), isMute, "Mute");
+        if (isMute)
+        {
+            AudioListener.volume = 0;
+        }
+        else
+        {
+            AudioListener.volume = 1;
+        }
         /*
         if (GUI.Button(new Rect(0, Screen.height*0.8f, Screen.width * 0.25f, Screen.height*0.1f), "Prev"))
         {
@@ -97,6 +105,7 @@ public class PedagogicalModule : MonoBehaviour
                 audio.Play();
                 NextTask();
                 showNext = false;
+                analyzer.showMe = true;
             }
         }
 
@@ -152,9 +161,15 @@ public class PedagogicalModule : MonoBehaviour
         }
         else
         {
-            Application.LoadLevel("End");
+            // allow enough time to play the SFX for turning off the interface
+            Invoke("GoToNextLevel", btnSFX.length);
         }
         SetStep();
+    }
+
+    public void GoToNextLevel()
+    {
+        Application.LoadLevel("End");
     }
 
     public void GetRandomQuestion()
@@ -199,6 +214,7 @@ public class PedagogicalModule : MonoBehaviour
         
         if (currentTask.answeredQuestion) // finished task
         {
+            analyzer.showMe = false;
             this.SendMessage("AddLine", "Complete!");
             GameObject.Find("Sci-Fi Interface").SendMessage("TurnOn");
             audio.clip = finishedTaskSFX;

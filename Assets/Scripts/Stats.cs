@@ -23,20 +23,18 @@ public class Stats : MonoBehaviour
 {
     public GUISkin skin;
     private string[] history;
-    private Vector2[] scrollPositions;
 
 	// Use this for initialization
 	void Start ()
     {
         history = PlayerPrefs.GetString("StepHistory").Split('\t');
-        scrollPositions = new Vector2[history.Length-1];
-        for (int i = 0; i < history.Length - 1; i++)
+        /*for (int i = 0; i < history.Length - 1; i++)
         {
             int numCorrect = PlayerPrefs.GetInt("c" + i);
             int numIncorrect = PlayerPrefs.GetInt("i" + i);
             Debug.Log(numCorrect + ", " + numIncorrect);
-            // pie chart set data
-        }
+            // pie chart set data?
+        }//*/
 	}
 	
 	// Update is called once per frame
@@ -46,65 +44,21 @@ public class Stats : MonoBehaviour
     void OnGUI()
     {
         GUI.skin = skin;
-        GUI.skin.label.alignment = TextAnchor.MiddleCenter;
-        GUI.Label(new Rect(0, 0, Screen.width, Screen.height * 0.1f), "Performance");
-        
-        // populate the information
-        ArrayList selectionItems = new ArrayList();
-        for (int i = 0; i < history.Length - 1; i++)
-        {
-            selectionItems.Add("Task #" + (i+1) + ":");
-            selectionItems.Add(history[i].Split('\n')[0]);
-            
-            int numCorrect = PlayerPrefs.GetInt("c" + i);
-            selectionItems.Add("Number of Correct: " + numCorrect);
-            
-            int numIncorrect = PlayerPrefs.GetInt("i" + i);
-            selectionItems.Add("Number of Wrong: " + numIncorrect);
-            
-            selectionItems.Add("Percentage: " + (((float)numCorrect / (float)(numCorrect + numIncorrect)) * 100) + "%");
-            selectionItems.Add("Show Steps");
-        }
-        string[] items = (string[])selectionItems.ToArray(typeof(string));
 
         // TODO: GUI.BeginScrollView() if we ever decide to add more than four tasks
         // most likely by creating TaskSelector.cs which imports tasks from a text file
         // and chooses tasks accordingly to student's current level of knowledge
         // when asked for by the pedagogical model during gameplay...
 
-        // GUI.SelectionGrid since unity doesn't have its own GUI.Table
-        GUI.skin.button.wordWrap = true;
-        GUI.skin.button.fixedHeight = 50;
-        int selected = -1;
-        Rect bgRect = new Rect(0, Screen.height * 0.1f, Screen.width, Screen.height * 0.35f);
-        //GUI.Box(bgRect,"");
-        selected = GUI.SelectionGrid(bgRect, selected, items, 6, GUI.skin.button);
-
-        // manage selected button from SelectionGrid
-        if (selected % 6 == 5) // last column
-        {
-            if (showFeedback && curFeedback == (selected / 6)) // if already showing feedback
-            {
-                showFeedback = false;
-            }
-            else // not showing feedback
-            {
-                curFeedback = selected / 6;
-                showFeedback = true;
-                feedbackText = history[curFeedback];
-                windowTitle = history[curFeedback].Split('\n')[0];
-            }
-        }
-        else if (selected != -1) // clicked on any of the other columns
-        {
-            showFeedback = false;
-        }
+        drawTable();
 
         // feedback shown in a GUI.Window
         if (showFeedback)
         {
             windowRect = GUI.Window(0, windowRect, windowFunc, windowTitle);
         }
+
+        // Possible Save button?
 
         // Restart button
         if (GUI.Button(new Rect(Screen.width * 0.75f, Screen.height * 0.8f, Screen.width * 0.25f, Screen.height * 0.1f), "Restart"))
@@ -113,6 +67,127 @@ public class Stats : MonoBehaviour
         }
     }
 
+    // custom draw table function I made since unity doesn't have a GUI.Table >.>
+    void drawTable()
+    {
+        // draw background
+        Rect bgRect = new Rect(0, Screen.height * 0.1f, Screen.width, Screen.height * 0.35f);
+        GUI.backgroundColor = Color.black;
+        GUI.Box(bgRect, "");
+
+        // Start the drawing area with the Table's title
+        GUILayout.BeginArea(bgRect);
+        GUI.skin.label.alignment = TextAnchor.MiddleCenter;
+        GUILayout.Label("Performance");
+
+        // Draw the table by drawing one column at a time
+        GUILayout.BeginHorizontal();
+
+        GUI.skin.label.normal.textColor = Color.white;
+        
+        // Column 1: Task number 
+        GUILayout.BeginVertical();
+        GUILayout.Label("Task #");
+        for (int i = 0; i < history.Length - 1; i++)
+        {
+            GUILayout.Label(""+(i + 1) + ":");
+        }
+        GUILayout.EndVertical();
+
+        // buffer
+        GUILayout.Label("\t");
+
+        // Column 2: Specified Task
+        GUILayout.BeginVertical();
+        GUILayout.Label("Question");
+        for (int i = 0; i < history.Length - 1; i++)
+        {
+            GUILayout.Label(history[i].Split('\n')[0]);
+        }
+        GUILayout.EndVertical();
+
+        // buffer
+        GUILayout.Label("\t");
+
+        GUI.skin.label.normal.textColor = Color.green;
+        
+        // Column 3: Number of correct
+        GUILayout.BeginVertical();
+        GUILayout.Label("Number of Correct:");
+        for (int i = 0; i < history.Length - 1; i++)
+        {
+            GUILayout.Label("" + PlayerPrefs.GetInt("c" + i));
+        }
+        GUILayout.EndVertical();
+
+        // buffer
+        GUILayout.Label("\t");
+
+        GUI.skin.label.normal.textColor = Color.red;
+        
+        // Column 4: Number of incorrect
+        GUILayout.BeginVertical();
+        GUILayout.Label("Number of Wrong:");
+        for (int i = 0; i < history.Length - 1; i++)
+        {
+            GUILayout.Label("" + PlayerPrefs.GetInt("i" + i));
+        }
+        GUILayout.EndVertical();
+
+        // buffer
+        GUILayout.Label("\t");
+
+        GUI.skin.label.normal.textColor = Color.green;
+
+        // Column 5: Percentile: C/(C+I) * 100%
+        GUILayout.BeginVertical();
+        GUILayout.Label("Percentage:");
+        for (int i = 0; i < history.Length - 1; i++)
+        {
+            int numCorrect = PlayerPrefs.GetInt("c" + i);
+            int numIncorrect = PlayerPrefs.GetInt("i" + i);
+            GUILayout.Label("" + (((float)numCorrect / (float)(numCorrect + numIncorrect)) * 100) + "%");
+        }
+        GUILayout.EndVertical();
+
+        // buffer
+        GUILayout.Label("\t");
+
+        // I do this because the labels are bigger than the buttons
+        GUI.skin.button.fixedHeight = GUI.skin.label.CalcHeight(new GUIContent("Hello World"), 100.0f);
+        GUI.backgroundColor = Color.white; // buttons should be white, not black like the background
+
+        // Column 6: Buttons
+        GUILayout.BeginVertical();
+        GUILayout.Label("Steps");
+        for (int i = 0; i < history.Length - 1; i++)
+        {
+            if (GUILayout.Button("Show Steps"))
+            {
+                if (showFeedback && curFeedback == i) // if already showing feedback
+                {
+                    showFeedback = false;
+                }
+                else // not showing feedback
+                {
+                    curFeedback = i;
+                    showFeedback = true;
+                    feedbackText = history[curFeedback];
+                    windowTitle = history[curFeedback].Split('\n')[0];
+                }
+            }
+        }
+        GUILayout.EndVertical();
+
+        // All columns are drawn
+        GUILayout.EndHorizontal();
+
+        // Don't forget to end the area
+        GUILayout.EndArea();
+    }
+
+
+    // Step Attempt History Window, Code borrowed from console
     string windowTitle = "";
     Rect windowRect = new Rect(0,0,Screen.width * 0.5f,Screen.height * 0.5f);
     bool showFeedback = false;
