@@ -49,6 +49,7 @@ public class PedagogicalModule : MonoBehaviour
     private Task currentTask;
     private int taskNum;
     private bool showNext = false;
+    private int numWrong = 0;
     
 	// Use this for initialization
 	void Start ()
@@ -192,6 +193,7 @@ public class PedagogicalModule : MonoBehaviour
     // called by step analyzer to inform pedagogical module of a correct step
     public void NextStep()
     {
+        numWrong = 0;
         PlayerPrefs.SetInt("Correct", PlayerPrefs.GetInt("Correct") + 1);
         currentTask.stepNum++;
         
@@ -233,9 +235,13 @@ public class PedagogicalModule : MonoBehaviour
         GameObject temp2 = (GameObject)Instantiate(spark2, analyzer.transform.position, Quaternion.identity);
         Destroy(temp2, 0.5f);
 
-        // show hint on console
         this.SendMessage("AddLine", "Incorrect: You answered: " + answered);
-        this.SendMessage("AddLine", currentTask.currentStep.hint);
+        numWrong++;
+        if (numWrong >= 2)
+        {
+            // show hint on console
+            this.SendMessage("AddLine", "Hint: " + currentTask.currentStep.hint);
+        }
     }
 
     public void GiveHint()

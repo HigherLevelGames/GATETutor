@@ -36,7 +36,6 @@ public class Console : MonoBehaviour
         // draw a window
         GUI.skin.label.fontSize = 20;
         rctWindow = GUI.Window(0, rctWindow, winFunc, title);
-        Debug.Log(rctWindow);
     }
 
     void OnDestroy()
@@ -44,7 +43,11 @@ public class Console : MonoBehaviour
         string hello = "";
         foreach (string step in StepAttemptHistory)
         {
-            hello += step + "\n";
+            hello += step;
+            if(step != "\t")
+            {
+                hello += "\n";
+            }
         }
         PlayerPrefs.SetString("StepHistory", hello);
     }
@@ -83,7 +86,7 @@ public class Console : MonoBehaviour
             Color c = Color.white;
             if (l.Contains("Incorrect") && l.Contains("Correct"))
             {
-                c = Color.white;
+                c = Color.cyan;
             }
             else if (l.Contains("Incorrect"))
             {
@@ -93,6 +96,11 @@ public class Console : MonoBehaviour
             {
                 c = Color.green;
             }
+            else if (l.Contains("Hint"))
+            {
+                c = Color.yellow;
+            }
+            GUI.skin.label.alignment = TextAnchor.MiddleLeft;
             GUI.skin.label.normal.textColor = c;
             GUI.Label(new Rect(0+5, offset, consoleWidth, lineHeight), l);
             offset += lineHeight;

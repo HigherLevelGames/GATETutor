@@ -46,42 +46,101 @@ public class Stats : MonoBehaviour
     void OnGUI()
     {
         GUI.skin = skin;
-        string text = "Performance";
-
-        /*
-        //add performance text here
+        GUI.skin.label.alignment = TextAnchor.MiddleCenter;
+        GUI.Label(new Rect(0, 0, Screen.width, Screen.height * 0.1f), "Performance");
         
-        foreach(string KC in KnowledgeComponents)
-        {
-            text += KC + ": " + PlayerPrefs.GetInt(KC);
-        }
-        //*/
-
-        float width = Screen.width/(history.Length-1);
+        // populate the information
+        ArrayList selectionItems = new ArrayList();
         for (int i = 0; i < history.Length - 1; i++)
         {
-            Rect scrollRect = new Rect(0 + i * width, Screen.height * 0.5f, width, Screen.height * 0.3f);
-            string step = history[i];
-            float height = GUI.skin.box.CalcHeight(new GUIContent(step), width);
+            selectionItems.Add("Task #" + (i+1) + ":");
+            selectionItems.Add(history[i].Split('\n')[0]);
+            
+            int numCorrect = PlayerPrefs.GetInt("c" + i);
+            selectionItems.Add("Number of Correct: " + numCorrect);
+            
+            int numIncorrect = PlayerPrefs.GetInt("i" + i);
+            selectionItems.Add("Number of Wrong: " + numIncorrect);
+            
+            selectionItems.Add("Percentage: " + (((float)numCorrect / (float)(numCorrect + numIncorrect)) * 100) + "%");
+            selectionItems.Add("Show Steps");
+        }
+        string[] items = (string[])selectionItems.ToArray(typeof(string));
 
-            // begin scroll view
-            scrollPositions[i] = GUI.BeginScrollView(
-                    scrollRect, // scroll rectangle
-                    scrollPositions[i],
-                    new Rect(0, 0, width, height) // view inside scroll rectangle
-                    );
-            GUI.Box(new Rect(0, 0, width, height), step);
+        // TODO: GUI.BeginScrollView() if we ever decide to add more than four tasks
+        // most likely by creating TaskSelector.cs which imports tasks from a text file
+        // and chooses tasks accordingly to student's current level of knowledge
+        // when asked for by the pedagogical model during gameplay...
 
-            // end scroll view and make window draggable
-            GUI.EndScrollView();
+        // GUI.SelectionGrid since unity doesn't have its own GUI.Table
+        GUI.skin.button.wordWrap = true;
+        GUI.skin.button.fixedHeight = 50;
+        int selected = -1;
+        Rect bgRect = new Rect(0, Screen.height * 0.1f, Screen.width, Screen.height * 0.35f);
+        //GUI.Box(bgRect,"");
+        selected = GUI.SelectionGrid(bgRect, selected, items, 6, GUI.skin.button);
+
+        // manage selected button from SelectionGrid
+        if (selected % 6 == 5) // last column
+        {
+            if (showFeedback && curFeedback == (selected / 6)) // if already showing feedback
+            {
+                showFeedback = false;
+            }
+            else // not showing feedback
+            {
+                curFeedback = selected / 6;
+                showFeedback = true;
+                feedbackText = history[curFeedback];
+                windowTitle = history[curFeedback].Split('\n')[0];
+            }
+        }
+        else if (selected != -1) // clicked on any of the other columns
+        {
+            showFeedback = false;
         }
 
-        GUI.Label(new Rect(0, 0, Screen.width, Screen.height*0.1f), text);
-        //GUI.Box(new Rect(0,0,Screen.width, Screen.height),text);
+        // feedback shown in a GUI.Window
+        if (showFeedback)
+        {
+            windowRect = GUI.Window(0, windowRect, windowFunc, windowTitle);
+        }
 
+        // Restart button
         if (GUI.Button(new Rect(Screen.width * 0.75f, Screen.height * 0.8f, Screen.width * 0.25f, Screen.height * 0.1f), "Restart"))
         {
             Application.LoadLevel("Title");
         }
+    }
+
+    string windowTitle = "";
+    Rect windowRect = new Rect(0,0,Screen.width * 0.5f,Screen.height * 0.5f);
+    bool showFeedback = false;
+    string feedbackText = "";
+    int curFeedback = -1;
+    Vector2 scrollPosition = Vector2.zero;
+    void windowFunc(int id)
+    {
+        // dimension variables
+        float sideBuffer = 13;
+        float topBuffer = 26;
+        float bottomBuffer = 14;
+        float winWidth = windowRect.width - sideBuffer * 2;
+        float vScrollWidth = 18;
+        float width = winWidth - vScrollWidth;
+        float height = GUI.skin.box.CalcHeight(new GUIContent(feedbackText), width);
+        Rect scrollRect = new Rect(sideBuffer, topBuffer, winWidth, windowRect.height - topBuffer - bottomBuffer);
+
+        // begin scroll view
+        scrollPosition = GUI.BeginScrollView(
+                scrollRect, // scroll rectangle
+                scrollPosition,
+                new Rect(0, 0, width, height) // view inside scroll rectangle
+                );
+        GUI.Box(new Rect(0, 0, width, height), feedbackText);
+
+        // end scroll view and make window draggable
+        GUI.EndScrollView();
+        GUI.DragWindow();
     }
 }
