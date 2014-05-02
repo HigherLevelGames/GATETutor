@@ -2300,18 +2300,18 @@ MonoBehaviour:
       hint: What operator has the most precedence after the parenthesis?
       inputLines:
       - begin: {x: 3, y: 5}
-        end: {x: 9.80000019, y: 12}
+        end: {x: 9.69999981, y: 12}
       - begin: {x: 3, y: 14}
-        end: {x: 9.80000019, y: 14}
+        end: {x: 9.69999981, y: 14}
     - Position2D: {x: 19, y: 9.5}
       Scale: {x: 0, y: 0}
       answer: 1
       hint: What operator has the least precedence?
       inputLines:
       - begin: {x: 12.8000002, y: 6}
-        end: {x: 17.7000008, y: 9}
-      - begin: {x: 12.3000002, y: 13}
-        end: {x: 17.7000008, y: 10}
+        end: {x: 17.7999992, y: 9}
+      - begin: {x: 12.3999996, y: 13}
+        end: {x: 17.7999992, y: 10}
       - begin: {x: 20.2000008, y: 9.5}
         end: {x: 22, y: 9.5}
   - question: "Draw a logic circuit for \xAC(A + B)(C + D)\xACC."
@@ -2331,9 +2331,9 @@ MonoBehaviour:
       hint: What operator do you use to negate terms separated by the '+' symbol?
       inputLines:
       - begin: {x: 2, y: 3}
-        end: {x: 8.30000019, y: 3}
+        end: {x: 8.5, y: 3}
       - begin: {x: 2, y: 5}
-        end: {x: 8.30000019, y: 5}
+        end: {x: 8.5, y: 5}
     - Position2D: {x: 10, y: 16}
       Scale: {x: 0, y: 0}
       answer: 1

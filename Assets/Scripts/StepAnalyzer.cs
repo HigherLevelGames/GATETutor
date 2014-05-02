@@ -53,7 +53,7 @@ public class StepAnalyzer : MonoBehaviour
     // OnGUI() draws a green square outline
     void OnGUI()
     {
-        DrawGrid();
+        //DrawGrid();
 
         if (!showMe)
         {
