@@ -22,6 +22,7 @@ using System.Collections;
 public class Stats : MonoBehaviour
 {
     public GUISkin skin;
+    public GUISkin btnSkin;
     private string[] history;
 
 	// Use this for initialization
@@ -53,6 +54,7 @@ public class Stats : MonoBehaviour
         drawTable();
 
         // feedback shown in a GUI.Window
+        GUI.skin = skin;
         if (showFeedback)
         {
             windowRect = GUI.Window(0, windowRect, windowFunc, windowTitle);
@@ -61,6 +63,7 @@ public class Stats : MonoBehaviour
         // Possible Save button?
 
         // Restart button
+        GUI.skin = btnSkin;
         if (GUI.Button(new Rect(Screen.width * 0.75f, Screen.height * 0.8f, Screen.width * 0.25f, Screen.height * 0.1f), "Restart"))
         {
             Application.LoadLevel("Title");
@@ -71,13 +74,14 @@ public class Stats : MonoBehaviour
     void drawTable()
     {
         // draw background
-        Rect bgRect = new Rect(0, Screen.height * 0.1f, Screen.width, Screen.height * 0.35f);
+        Rect bgRect = new Rect(0, Screen.height * 0.1f, Screen.width, Screen.height * 0.4f);
         GUI.backgroundColor = Color.black;
         GUI.Box(bgRect, "");
 
         // Start the drawing area with the Table's title
         GUILayout.BeginArea(bgRect);
         GUI.skin.label.alignment = TextAnchor.MiddleCenter;
+        GUI.skin.label.wordWrap = false;
         GUILayout.Label("Performance");
 
         // Draw the table by drawing one column at a time
@@ -108,7 +112,7 @@ public class Stats : MonoBehaviour
 
         // buffer
         GUILayout.Label("\t");
-
+        
         GUI.skin.label.normal.textColor = Color.green;
         
         // Column 3: Number of correct
@@ -139,7 +143,19 @@ public class Stats : MonoBehaviour
 
         GUI.skin.label.normal.textColor = Color.green;
 
-        // Column 5: Percentile: C/(C+I) * 100%
+        // Column 5: Total Attempts
+        GUILayout.BeginVertical();
+        GUILayout.Label("Total Attempts:");
+        for (int i = 0; i < history.Length - 1; i++)
+        {
+            GUILayout.Label("" + (PlayerPrefs.GetInt("c" + i) + PlayerPrefs.GetInt("i" + i)));
+        }
+        GUILayout.EndVertical();
+
+        // buffer
+        GUILayout.Label("\t");
+
+        // Column 6: Percentile: C/(C+I) * 100%
         GUILayout.BeginVertical();
         GUILayout.Label("Percentage:");
         for (int i = 0; i < history.Length - 1; i++)
@@ -154,12 +170,15 @@ public class Stats : MonoBehaviour
         GUILayout.Label("\t");
 
         // I do this because the labels are bigger than the buttons
-        GUI.skin.button.fixedHeight = GUI.skin.label.CalcHeight(new GUIContent("Hello World"), 100.0f);
         GUI.backgroundColor = Color.white; // buttons should be white, not black like the background
+        float height = GUI.skin.label.CalcHeight(new GUIContent("Hello World"), 100.0f);
 
         // Column 6: Buttons
         GUILayout.BeginVertical();
         GUILayout.Label("Steps");
+        GUI.skin = btnSkin;
+        GUI.skin.button.fixedHeight = height;
+        GUI.skin.button.fontSize = 13;
         for (int i = 0; i < history.Length - 1; i++)
         {
             if (GUILayout.Button("Show Steps"))

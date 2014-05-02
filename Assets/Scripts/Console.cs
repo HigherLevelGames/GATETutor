@@ -62,7 +62,11 @@ public class Console : MonoBehaviour
         float winWidth = rctWindow.width - sideBuffer * 2;
         float vScrollWidth = 18;
         float consoleWidth = winWidth - vScrollWidth;
-        float consoleHeight = consoleLines.Count * GUI.skin.GetStyle("Label").CalcHeight(new GUIContent("Hello World"), consoleWidth);
+        float consoleHeight = 0;
+        for (int i = 0; i < consoleLines.Count; i++)
+        {
+            consoleHeight += GUI.skin.GetStyle("Label").CalcHeight(new GUIContent((string)consoleLines[i]), consoleWidth);
+        } 
         Rect scrollRect = new Rect(sideBuffer, topBuffer, winWidth, rctWindow.height - topBuffer - bottomBuffer);
         
         // console background

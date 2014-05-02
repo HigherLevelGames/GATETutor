@@ -240,6 +240,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skin: {fileID: 11400000, guid: c9133c91cd117417d0000cf8a220b639, type: 2}
+  btnSkin: {fileID: 11400000, guid: 369782f1cd1109c6d000ede8a220b639, type: 2}
 --- !u!81 &1349044046
 AudioListener:
   m_ObjectHideFlags: 0

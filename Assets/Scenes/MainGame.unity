@@ -913,6 +913,7 @@ MonoBehaviour:
   answer: And
   currentStep:
     Position2D: {x: 0, y: 0}
+    Scale: {x: 0, y: 0}
     answer: 0
     hint: 
     inputLines: []
@@ -2227,120 +2228,133 @@ MonoBehaviour:
     KC: 
     answeredQuestion: 0
     steps:
-    - Position2D: {x: 10, y: 8}
+    - Position2D: {x: 9.80000019, y: 8}
+      Scale: {x: 0, y: 0}
       answer: 1
-      hint: Test
+      hint: Remember to first perform what is inside the parenthesis.
       inputLines:
       - begin: {x: 4, y: 7}
         end: {x: 8.5, y: 7}
       - begin: {x: 4, y: 9}
         end: {x: 8.5, y: 9}
-    - Position2D: {x: 18, y: 9}
+    - Position2D: {x: 17.7999992, y: 9}
+      Scale: {x: 0, y: 0}
       answer: 0
-      hint: Test 2
+      hint: What gate do you use when there is no symbol?
       inputLines:
       - begin: {x: 4, y: 12}
         end: {x: 16.5, y: 10}
       - begin: {x: 11, y: 8}
         end: {x: 16.5, y: 8}
-      - begin: {x: 19.5, y: 9}
+      - begin: {x: 19.2000008, y: 9}
         end: {x: 23, y: 9}
   - question: "Draw a logic circuit for A + BC + \xACD."
     KC: 
     answeredQuestion: 0
     steps:
-    - Position2D: {x: 9, y: 14}
+    - Position2D: {x: 8.80000019, y: 14}
+      Scale: {x: 0, y: 0}
       answer: 2
-      hint: 
+      hint: Remember to first perform the inversions of single terms.
       inputLines:
       - begin: {x: 5, y: 14}
         end: {x: 7, y: 14}
-    - Position2D: {x: 8.5, y: 9}
+    - Position2D: {x: 8.30000019, y: 9}
+      Scale: {x: 0, y: 0}
       answer: 0
-      hint: 
+      hint: What gate do you use when there is no symbol?
       inputLines:
       - begin: {x: 5, y: 8}
         end: {x: 7, y: 8}
       - begin: {x: 5, y: 10}
         end: {x: 7, y: 10}
     - Position2D: {x: 17, y: 9}
+      Scale: {x: 0, y: 0}
       answer: 1
-      hint: 
+      hint: What gate do you use when you have the '+' symbol?
       inputLines:
       - begin: {x: 5, y: 5}
-        end: {x: 15, y: 7}
-      - begin: {x: 11, y: 9}
-        end: {x: 15, y: 9}
-      - begin: {x: 11, y: 14}
-        end: {x: 15, y: 11}
-      - begin: {x: 20, y: 9}
+        end: {x: 15.6999998, y: 8}
+      - begin: {x: 9.80000019, y: 9}
+        end: {x: 15.8999996, y: 9}
+      - begin: {x: 10.6999998, y: 14}
+        end: {x: 15.6999998, y: 10}
+      - begin: {x: 18.2000008, y: 9}
         end: {x: 23, y: 9}
   - question: "Draw a logic circuit for AB + \xAC(AC)."
     KC: 
     answeredQuestion: 0
     steps:
     - Position2D: {x: 11, y: 6}
+      Scale: {x: 0, y: 0}
       answer: 3
-      hint: 
+      hint: What composite gate do you use when you have no symbol inside the parenthesis?
       inputLines:
       - begin: {x: 3, y: 5}
-        end: {x: 9, y: 5}
+        end: {x: 9.19999981, y: 5}
       - begin: {x: 3, y: 7}
-        end: {x: 9, y: 7}
+        end: {x: 9.19999981, y: 7}
     - Position2D: {x: 11, y: 13}
+      Scale: {x: 0, y: 0}
       answer: 0
-      hint: 
+      hint: What operator has the most precedence after the parenthesis?
       inputLines:
       - begin: {x: 3, y: 5}
-        end: {x: 9, y: 12}
+        end: {x: 9.80000019, y: 12}
       - begin: {x: 3, y: 14}
-        end: {x: 9, y: 14}
+        end: {x: 9.80000019, y: 14}
     - Position2D: {x: 19, y: 9.5}
+      Scale: {x: 0, y: 0}
       answer: 1
-      hint: 
+      hint: What operator has the least precedence?
       inputLines:
-      - begin: {x: 13, y: 6}
-        end: {x: 17, y: 8.5}
-      - begin: {x: 13, y: 13}
-        end: {x: 17, y: 10.5}
-      - begin: {x: 21.5, y: 9.5}
-        end: {x: 24, y: 9.5}
+      - begin: {x: 12.8000002, y: 6}
+        end: {x: 17.7000008, y: 9}
+      - begin: {x: 12.3000002, y: 13}
+        end: {x: 17.7000008, y: 10}
+      - begin: {x: 20.2000008, y: 9.5}
+        end: {x: 22, y: 9.5}
   - question: "Draw a logic circuit for \xAC(A + B)(C + D)\xACC."
     KC: 
     answeredQuestion: 0
     steps:
     - Position2D: {x: 10, y: 10}
+      Scale: {x: 0, y: 0}
       answer: 2
-      hint: 
+      hint: Remember to first perform the inversions of single terms.
       inputLines:
       - begin: {x: 2, y: 15}
-        end: {x: 8, y: 10}
+        end: {x: 8.19999981, y: 10}
     - Position2D: {x: 10, y: 4}
+      Scale: {x: 0, y: 0}
       answer: 4
-      hint: 
+      hint: What operator do you use to negate terms separated by the '+' symbol?
       inputLines:
       - begin: {x: 2, y: 3}
-        end: {x: 8, y: 3}
+        end: {x: 8.30000019, y: 3}
       - begin: {x: 2, y: 5}
-        end: {x: 8, y: 5}
+        end: {x: 8.30000019, y: 5}
     - Position2D: {x: 10, y: 16}
+      Scale: {x: 0, y: 0}
       answer: 1
-      hint: 
+      hint: What gate do you use when you have the '+' symbol?
       inputLines:
       - begin: {x: 2, y: 15}
-        end: {x: 8, y: 15}
+        end: {x: 8.69999981, y: 15}
       - begin: {x: 2, y: 17}
-        end: {x: 8, y: 17}
+        end: {x: 8.69999981, y: 17}
     - Position2D: {x: 18.5, y: 10}
+      Scale: {x: 0, y: 0}
       answer: 0
-      hint: 
+      hint: What gate do you use to connect expressions when there is no symbol between
+        parenthesis?
       inputLines:
-      - begin: {x: 13, y: 4}
-        end: {x: 17, y: 8}
-      - begin: {x: 12, y: 10}
-        end: {x: 17, y: 10}
-      - begin: {x: 12, y: 16}
-        end: {x: 17, y: 12}
+      - begin: {x: 11.8000002, y: 4}
+        end: {x: 17.2000008, y: 9}
+      - begin: {x: 11.8999996, y: 10}
+        end: {x: 17.2000008, y: 10}
+      - begin: {x: 11.1000004, y: 16}
+        end: {x: 17.2000008, y: 11}
       - begin: {x: 20, y: 10}
         end: {x: 23, y: 10}
   analyzer: {fileID: 1042244452}
