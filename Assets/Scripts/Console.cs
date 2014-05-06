@@ -70,7 +70,7 @@ public class Console : MonoBehaviour
         Rect scrollRect = new Rect(sideBuffer, topBuffer, winWidth, rctWindow.height - topBuffer - bottomBuffer);
         
         // console background
-        Vector2 temp = new Vector2(Input.mousePosition.x,Screen.height - Input.mousePosition.y);
+        //Vector2 temp = new Vector2(Input.mousePosition.x,Screen.height - Input.mousePosition.y);
         GUI.backgroundColor = Color.black;
         GUI.Box(scrollRect, "");
         GUI.backgroundColor = Color.white; // white again for vertical scroll bar

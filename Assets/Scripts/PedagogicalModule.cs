@@ -64,7 +64,7 @@ public class PedagogicalModule : MonoBehaviour
     {
         GUI.skin = skinButton;
         GUI.skin.font = buttonFont;
-        isMute = GUI.Toggle(adjRect(new Rect(85, 77, 15, 5)), isMute, "Mute");
+        isMute = GUI.Toggle(adjRect(new Rect(85, 77, 5, 2)), isMute, "Mute");
         if (isMute)
         {
             AudioListener.volume = 0;

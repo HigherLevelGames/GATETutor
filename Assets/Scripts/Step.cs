@@ -6,7 +6,6 @@ using System.Collections.Generic;
 public class Step
 {
     public Vector2 Position2D;
-    public Vector2 Scale;
     public enum AnswerOption
     {
         And,

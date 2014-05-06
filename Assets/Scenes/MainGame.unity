@@ -414,7 +414,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 391698590}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.63862896, y: .82272172, z: 0}
+  m_LocalPosition: {x: 6.06804657, y: .82272172, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -532,7 +532,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 429386075}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.67075777, y: -.684546471, z: 0}
+  m_LocalPosition: {x: 6.10017538, y: -.684546471, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -913,7 +913,6 @@ MonoBehaviour:
   answer: And
   currentStep:
     Position2D: {x: 0, y: 0}
-    Scale: {x: 0, y: 0}
     answer: 0
     hint: 
     inputLines: []
@@ -1352,7 +1351,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1242392432}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.62373829, y: 3.44575834, z: 0}
+  m_LocalPosition: {x: 6.0531559, y: 3.44575834, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1735,7 +1734,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1344386352}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.6595583, y: -1.98300982, z: 0}
+  m_LocalPosition: {x: 6.08897591, y: -1.98300982, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2061,7 +2060,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1547482538}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.65280914, y: 2.25550795, z: 0}
+  m_LocalPosition: {x: 6.08222675, y: 2.25550795, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2229,7 +2228,6 @@ MonoBehaviour:
     answeredQuestion: 0
     steps:
     - Position2D: {x: 9.80000019, y: 8}
-      Scale: {x: 0, y: 0}
       answer: 1
       hint: Remember to first perform what is inside the parenthesis.
       inputLines:
@@ -2238,7 +2236,6 @@ MonoBehaviour:
       - begin: {x: 4, y: 9}
         end: {x: 8.5, y: 9}
     - Position2D: {x: 17.7999992, y: 9}
-      Scale: {x: 0, y: 0}
       answer: 0
       hint: What gate do you use when there is no symbol?
       inputLines:
@@ -2253,14 +2250,12 @@ MonoBehaviour:
     answeredQuestion: 0
     steps:
     - Position2D: {x: 8.80000019, y: 14}
-      Scale: {x: 0, y: 0}
       answer: 2
       hint: Remember to first perform the inversions of single terms.
       inputLines:
       - begin: {x: 5, y: 14}
         end: {x: 7, y: 14}
     - Position2D: {x: 8.30000019, y: 9}
-      Scale: {x: 0, y: 0}
       answer: 0
       hint: What gate do you use when there is no symbol?
       inputLines:
@@ -2269,7 +2264,6 @@ MonoBehaviour:
       - begin: {x: 5, y: 10}
         end: {x: 7, y: 10}
     - Position2D: {x: 17, y: 9}
-      Scale: {x: 0, y: 0}
       answer: 1
       hint: What gate do you use when you have the '+' symbol?
       inputLines:
@@ -2286,7 +2280,6 @@ MonoBehaviour:
     answeredQuestion: 0
     steps:
     - Position2D: {x: 11, y: 6}
-      Scale: {x: 0, y: 0}
       answer: 3
       hint: What composite gate do you use when you have no symbol inside the parenthesis?
       inputLines:
@@ -2295,7 +2288,6 @@ MonoBehaviour:
       - begin: {x: 3, y: 7}
         end: {x: 9.19999981, y: 7}
     - Position2D: {x: 11, y: 13}
-      Scale: {x: 0, y: 0}
       answer: 0
       hint: What operator has the most precedence after the parenthesis?
       inputLines:
@@ -2304,7 +2296,6 @@ MonoBehaviour:
       - begin: {x: 3, y: 14}
         end: {x: 9.69999981, y: 14}
     - Position2D: {x: 19, y: 9.5}
-      Scale: {x: 0, y: 0}
       answer: 1
       hint: What operator has the least precedence?
       inputLines:
@@ -2319,14 +2310,12 @@ MonoBehaviour:
     answeredQuestion: 0
     steps:
     - Position2D: {x: 10, y: 10}
-      Scale: {x: 0, y: 0}
       answer: 2
       hint: Remember to first perform the inversions of single terms.
       inputLines:
       - begin: {x: 2, y: 15}
         end: {x: 8.19999981, y: 10}
     - Position2D: {x: 10, y: 4}
-      Scale: {x: 0, y: 0}
       answer: 4
       hint: What operator do you use to negate terms separated by the '+' symbol?
       inputLines:
@@ -2335,7 +2324,6 @@ MonoBehaviour:
       - begin: {x: 2, y: 5}
         end: {x: 8.5, y: 5}
     - Position2D: {x: 10, y: 16}
-      Scale: {x: 0, y: 0}
       answer: 1
       hint: What gate do you use when you have the '+' symbol?
       inputLines:
@@ -2344,7 +2332,6 @@ MonoBehaviour:
       - begin: {x: 2, y: 17}
         end: {x: 8.69999981, y: 17}
     - Position2D: {x: 18.5, y: 10}
-      Scale: {x: 0, y: 0}
       answer: 0
       hint: What gate do you use to connect expressions when there is no symbol between
         parenthesis?

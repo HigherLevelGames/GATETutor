@@ -91,7 +91,7 @@ public class Stats : MonoBehaviour
         
         // Column 1: Task number 
         GUILayout.BeginVertical();
-        GUILayout.Label("Task #");
+        GUILayout.Label("\nTask #");
         for (int i = 0; i < history.Length - 1; i++)
         {
             GUILayout.Label(""+(i + 1) + ":");
@@ -103,7 +103,7 @@ public class Stats : MonoBehaviour
 
         // Column 2: Specified Task
         GUILayout.BeginVertical();
-        GUILayout.Label("Question");
+        GUILayout.Label("\nQuestion");
         for (int i = 0; i < history.Length - 1; i++)
         {
             GUILayout.Label(history[i].Split('\n')[0]);
@@ -117,7 +117,7 @@ public class Stats : MonoBehaviour
         
         // Column 3: Number of correct
         GUILayout.BeginVertical();
-        GUILayout.Label("Number of Correct:");
+        GUILayout.Label("Number of\nCorrect:");
         for (int i = 0; i < history.Length - 1; i++)
         {
             GUILayout.Label("" + PlayerPrefs.GetInt("c" + i));
@@ -131,7 +131,7 @@ public class Stats : MonoBehaviour
         
         // Column 4: Number of incorrect
         GUILayout.BeginVertical();
-        GUILayout.Label("Number of Wrong:");
+        GUILayout.Label("Number of\nWrong:");
         for (int i = 0; i < history.Length - 1; i++)
         {
             GUILayout.Label("" + PlayerPrefs.GetInt("i" + i));
@@ -145,7 +145,7 @@ public class Stats : MonoBehaviour
 
         // Column 5: Total Attempts
         GUILayout.BeginVertical();
-        GUILayout.Label("Total Attempts:");
+        GUILayout.Label("Total\nAttempts:");
         for (int i = 0; i < history.Length - 1; i++)
         {
             GUILayout.Label("" + (PlayerPrefs.GetInt("c" + i) + PlayerPrefs.GetInt("i" + i)));
@@ -157,7 +157,7 @@ public class Stats : MonoBehaviour
 
         // Column 6: Percentile: C/(C+I) * 100%
         GUILayout.BeginVertical();
-        GUILayout.Label("Percentage:");
+        GUILayout.Label("\nPercentage:");
         for (int i = 0; i < history.Length - 1; i++)
         {
             int numCorrect = PlayerPrefs.GetInt("c" + i);
@@ -175,7 +175,7 @@ public class Stats : MonoBehaviour
 
         // Column 6: Buttons
         GUILayout.BeginVertical();
-        GUILayout.Label("Steps");
+        GUILayout.Label("\nSteps");
         GUI.skin = btnSkin;
         GUI.skin.button.fixedHeight = height;
         GUI.skin.button.fontSize = 13;
@@ -222,8 +222,21 @@ public class Stats : MonoBehaviour
         float winWidth = windowRect.width - sideBuffer * 2;
         float vScrollWidth = 18;
         float width = winWidth - vScrollWidth;
-        float height = GUI.skin.box.CalcHeight(new GUIContent(feedbackText), width);
+        //float height = GUI.skin.box.CalcHeight(new GUIContent(feedbackText), width);
+        float height = GUI.skin.label.CalcHeight(new GUIContent(feedbackText), width);
+        
+        // taking the scrollbar into account
         Rect scrollRect = new Rect(sideBuffer, topBuffer, winWidth, windowRect.height - topBuffer - bottomBuffer);
+        windowRect.height = Mathf.Min(height + topBuffer + bottomBuffer, Screen.height * 0.5f);
+        if (windowRect.height < Screen.height * 0.5f)
+        {
+            width += vScrollWidth; // hide the scroll bar
+        }
+
+        // Console Background
+        GUI.backgroundColor = Color.black;
+        GUI.Box(scrollRect, "");
+        GUI.backgroundColor = Color.white; // white again for vertical scroll bar
 
         // begin scroll view
         scrollPosition = GUI.BeginScrollView(
@@ -231,10 +244,22 @@ public class Stats : MonoBehaviour
                 scrollPosition,
                 new Rect(0, 0, width, height) // view inside scroll rectangle
                 );
-        GUI.Box(new Rect(0, 0, width, height), feedbackText);
+        //GUI.Box(new Rect(0, 0, width, height), feedbackText);
+        GUI.skin.label.wordWrap = true;
+        GUI.skin.label.alignment = TextAnchor.UpperLeft;
+        GUI.Label(new Rect(0, 0, width, height), feedbackText.Replace("\n","\n >> "));
 
         // end scroll view and make window draggable
         GUI.EndScrollView();
+        
+        // X button to close window
+        float btnLength = 21;
+        GUI.skin.button.fixedHeight = btnLength;
+        if (GUI.Button(new Rect(windowRect.width - sideBuffer - btnLength, topBuffer-btnLength, btnLength, btnLength), "X"))
+        {
+            showFeedback = false;
+        }
+
         GUI.DragWindow();
     }
 }
