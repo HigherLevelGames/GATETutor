@@ -247,6 +247,7 @@ public class Stats : MonoBehaviour
         //GUI.Box(new Rect(0, 0, width, height), feedbackText);
         GUI.skin.label.wordWrap = true;
         GUI.skin.label.alignment = TextAnchor.UpperLeft;
+        GUI.skin.label.normal.textColor = Color.cyan;
         GUI.Label(new Rect(0, 0, width, height), feedbackText.Replace("\n","\n >> "));
 
         // end scroll view and make window draggable
