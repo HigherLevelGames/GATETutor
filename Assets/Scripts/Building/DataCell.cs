@@ -4,18 +4,41 @@ using System.Collections;
 // Reused code from StepAnalyzer.cs
 public class DataCell : MonoBehaviour
 {
+	// http://answers.unity3d.com/questions/36678/world-space-to-pixel-space-accuracy.html
+	private float pixelRatio
+	{
+		get
+		{
+			return (Camera.main.orthographicSize * 2) / Camera.main.pixelHeight;
+		}
+	}
+
 	public GameObject Inputs;
 	public GameObject Output;
 	public Vector2 size // changes based on numCol, max(numRow,numInputs,numOutputs) in BuildingController.cs
 	{
 		get
 		{
-			return (Vector2)this.transform.localScale;
+			BoxCollider2D bc = this.gameObject.GetComponent<BoxCollider2D>();
+			if(bc == null)
+			{
+				this.gameObject.AddComponent<BoxCollider2D>();
+				bc = this.gameObject.GetComponent<BoxCollider2D>();
+			}
+			return bc.size;
 		}
 		set
 		{
-			this.transform.localScale = value;
-			this.transform.position = new Vector2(loc.x*value.x, loc.y*value.y);
+			BoxCollider2D bc = this.gameObject.GetComponent<BoxCollider2D>();
+			if(bc == null)
+			{
+				this.gameObject.AddComponent<BoxCollider2D>();
+				bc = this.gameObject.GetComponent<BoxCollider2D>();
+			}
+			bc.isTrigger = true;
+			bc.size = value * pixelRatio;
+			bc.center = new Vector2(bc.size.x*0.5f, -bc.size.y*0.5f);
+			this.transform.position = Camera.main.ScreenToWorldPoint(new Vector2(loc.x*value.x, Screen.height-loc.y*value.y));
 		}
 	}
 	private Vector2 loc = Vector2.zero;
@@ -28,7 +51,7 @@ public class DataCell : MonoBehaviour
 		set
 		{
 			loc = value;
-			this.transform.position = new Vector2(loc.x*size.x, loc.y*size.y);
+			this.transform.position = Camera.main.ScreenToWorldPoint(new Vector2(loc.x*size.x, Screen.height-loc.y*size.y));
 		}
 	}
 	public bool available;
@@ -68,9 +91,44 @@ public class DataCell : MonoBehaviour
 		wireTexture.Apply();
 	}
 
+	GameObject toRegister;
+	void TouchUpEventHandler()
+	{
+		if(toRegister == null || this.tag != "None")
+		{
+			return;
+		}
+		
+		// assign entered gate to locked gate
+		toRegister.transform.position = this.transform.position + new Vector3(size.x*0.5f, -size.y*0.5f, 1);
+		toRegister.GetComponent<ClickAndDrag>().isDraggable = false;
+		toRegister.SendMessage("Respawn");
+		
+		// Tell the Game Controller (Pedagogical Module)
+		// to go to the next phase (next step or task) (i.e. input lines)
+		//GameObject.Find("GameController").SendMessage("NextStep");
+		Debug.Log("Placed gate");
+		
+		toRegister = null;
+	}
+
+	// once gate enters the trigger
+	// analyzes whether it is wrong or correct
+	void OnTriggerEnter2D(Collider2D col)
+	{
+		toRegister = col.gameObject;
+	}
+
+	void OnTriggerExit2D(Collider2D col)
+	{
+		toRegister = null;
+	}
+
 	// OnGUI() draws a green square outline
 	void OnGUI()
 	{
-		GUI.DrawTexture(new Rect(this.transform.position.x, this.transform.position.y, size.x, size.y), wireTexture);
+		Vector3 pt = Camera.main.WorldToScreenPoint(this.transform.position);
+		pt.y = Screen.height-pt.y; // screen to gui space
+		GUI.DrawTexture(new Rect(pt.x, pt.y, size.x/pixelRatio, size.y/pixelRatio), wireTexture);
 	}
 }

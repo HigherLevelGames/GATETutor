@@ -65,6 +65,7 @@ public class BuildingController : MonoBehaviour
 	{
 		GameObject temp = new GameObject(name);
 		temp.AddComponent<DataCell>();
+		temp.AddComponent<BoxCollider2D>(); // TODO: Switch over to BoxCollider2D for both Gates and cells
 		DataCell info = temp.GetComponent<DataCell>();
 		info.makeOutline(tag);
 		info.location = loc;

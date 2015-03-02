@@ -44,8 +44,22 @@ public class ClickAndDrag : MonoBehaviour
     {
         if (isDraggable)
         {
-            this.transform.position = initPos;
-        }
+			this.transform.position = initPos;
+
+			// http://answers.unity3d.com/questions/610440/on-touch-event-on-game-object-on-android-2d.html
+			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+			Vector3 wp = ray.GetPoint (distance);
+			Vector2 touchPos = new Vector2(wp.x, wp.y);
+			Collider2D hit = Physics2D.OverlapPoint(touchPos);
+			Debug.Log (touchPos);
+			if(hit)
+			{
+				Debug.Log(hit.transform.gameObject.name);
+				hit.transform.gameObject.SendMessage("TouchUpEventHandler",
+				                                     0,
+				                                     SendMessageOptions.DontRequireReceiver);
+			}
+		}
     }
 
     void Return()
