@@ -9,7 +9,7 @@ public class Console : MonoBehaviour
     private Rect rctWindow = new Rect(Screen.width * 0.1f, Screen.height * 0.7f, Screen.width * 0.5f, Screen.height * 0.25f);
     private Vector2 scrollPosition = Vector2.zero;
     private ArrayList consoleLines = new ArrayList();
-    public ArrayList StepAttemptHistory = new ArrayList();
+    public ArrayList StepAttemptHistory = new ArrayList(); // feedback
 
     void AddLine(string line)
     {

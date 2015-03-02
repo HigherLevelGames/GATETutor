@@ -51,10 +51,9 @@ public class ClickAndDrag : MonoBehaviour
 			Vector3 wp = ray.GetPoint (distance);
 			Vector2 touchPos = new Vector2(wp.x, wp.y);
 			Collider2D hit = Physics2D.OverlapPoint(touchPos);
-			Debug.Log (touchPos);
 			if(hit)
 			{
-				Debug.Log(hit.transform.gameObject.name);
+				Debug.Log(hit.transform.parent.gameObject.name + hit.transform.gameObject.name);
 				hit.transform.gameObject.SendMessage("TouchUpEventHandler",
 				                                     0,
 				                                     SendMessageOptions.DontRequireReceiver);
