@@ -3,30 +3,23 @@
 --- !u!78 &1
 TagManager:
   tags:
-  - And
-  - Or
-  - Not
-  - Nand
-  - Nor
-  - ToClean
-  - None
-  - Input
-  - Output
+  - Ground
+  - Air
   - 
   Builtin Layer 0: Default
   Builtin Layer 1: TransparentFX
   Builtin Layer 2: Ignore Raycast
   Builtin Layer 3: 
   Builtin Layer 4: Water
-  Builtin Layer 5: UI
+  Builtin Layer 5: 
   Builtin Layer 6: 
   Builtin Layer 7: 
-  User Layer 8: Gate Layer
-  User Layer 9: Background
-  User Layer 10: Line
-  User Layer 11: 
+  User Layer 8: Enemies
+  User Layer 9: Projectiles
+  User Layer 10: Grid
+  User Layer 11: Tower
   User Layer 12: 
-  User Layer 13: 
+  User Layer 13: WorldLimit
   User Layer 14: 
   User Layer 15: 
   User Layer 16: 
@@ -44,9 +37,4 @@ TagManager:
   User Layer 28: 
   User Layer 29: 
   User Layer 30: 
-  User Layer 31: 
-  m_SortingLayers:
-  - name: Default
-    userID: 0
-    uniqueID: 0
-    locked: 0
+  User Layer 31: 2DGUI
